@@ -83,18 +83,40 @@ body { margin:0; }
         <a onClick="{{ it.onClick }}" style="text-decoration:none; cursor:pointer; color:{{ it.color }}; padding-bottom:4px; border-bottom:{{ it.border }};">{{ it.label }}</a>
       </sc-for>
     </div>
-    <button class="rwd-hamburger" onclick="document.getElementById('mobileMenu').classList.add('open')" aria-label="選單">
+    <button class="rwd-hamburger" id="navOpen" aria-label="選單">
       <span></span><span></span><span></span>
     </button>
   </div>
 
   <!-- 手機選單 -->
   <div class="rwd-mobile-menu" id="mobileMenu">
-    <button class="rwd-close" onclick="document.getElementById('mobileMenu').classList.remove('open')">✕</button>
+    <button class="rwd-close" id="navClose">✕</button>
     <sc-for list="{{ navItems }}" as="it" hint-placeholder-count="6">
-      <a onClick="{{ it.onClick }}" onclick="document.getElementById('mobileMenu').classList.remove('open')" style="text-decoration:none; cursor:pointer; color:#F2E4C8; font-family:'Noto Serif TC',serif; font-size:22px; letter-spacing:.2em;">{{ it.label }}</a>
+      <a onClick="{{ it.onClick }}" class="nav-mobile-link" style="text-decoration:none; cursor:pointer; color:#F2E4C8; font-family:'Noto Serif TC',serif; font-size:22px; letter-spacing:.2em;">{{ it.label }}</a>
     </sc-for>
   </div>
+
+  <script>
+    (function() {
+      function initMenu() {
+        var open = document.getElementById('navOpen');
+        var close = document.getElementById('navClose');
+        var menu = document.getElementById('mobileMenu');
+        if (!open || !menu) return;
+        open.addEventListener('click', function() { menu.classList.add('open'); });
+        close.addEventListener('click', function() { menu.classList.remove('open'); });
+        menu.querySelectorAll('.nav-mobile-link').forEach(function(a) {
+          a.addEventListener('click', function() { menu.classList.remove('open'); });
+        });
+      }
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initMenu);
+      } else {
+        initMenu();
+        setTimeout(initMenu, 500);
+      }
+    })();
+  </script>
 
   <!-- ============ 視圖：首頁 ============ -->
   <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
