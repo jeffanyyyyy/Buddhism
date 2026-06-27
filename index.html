@@ -11,13 +11,66 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;500;600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
-<style>* { box-sizing: border-box; } body { margin:0; } @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }</style>
+<style>
+* { box-sizing: border-box; }
+body { margin:0; }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+.rwd-nav        { display:flex; align-items:center; justify-content:space-between; padding:18px 56px; background:#3A211C; color:#F2E4C8; position:sticky; top:0; z-index:50; }
+.rwd-nav-links  { display:flex; gap:30px; font-size:15px; letter-spacing:.08em; }
+.rwd-hamburger  { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:4px; background:none; border:none; }
+.rwd-hamburger span { display:block; width:24px; height:2px; background:#C9A24B; }
+.rwd-mobile-menu { display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:#3A211C; z-index:200; flex-direction:column; align-items:center; justify-content:center; gap:32px; }
+.rwd-mobile-menu.open { display:flex; }
+.rwd-mobile-menu a, .rwd-mobile-menu span { font-family:'Noto Serif TC',serif; font-size:22px; color:#F2E4C8; text-decoration:none; letter-spacing:.2em; cursor:pointer; display:block; }
+.rwd-close { position:absolute; top:24px; right:28px; font-size:32px; color:#C9A24B; cursor:pointer; background:none; border:none; line-height:1; }
+
+.rwd-hero-h1  { font-size:60px; line-height:1.5; margin:0 0 24px; letter-spacing:.08em; font-family:'Noto Serif TC',serif; font-weight:500; }
+.rwd-hero-btn { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
+.rwd-2col     { display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center; }
+.rwd-3col     { display:grid; grid-template-columns:repeat(3,1fr); gap:40px; }
+.rwd-3card    { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+.rwd-2card    { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+.rwd-primer-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+.rwd-video-grid  { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+.rwd-schedule-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:18px; max-width:680px; margin:0 auto; }
+.rwd-contact  { display:grid; grid-template-columns:1fr 1.1fr; gap:48px; }
+.rwd-footer   { display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:48px; }
+
+@media (max-width: 768px) {
+  .rwd-nav        { padding:16px 20px; }
+  .rwd-nav-links  { display:none; }
+  .rwd-hamburger  { display:flex; }
+
+  .rwd-hero-h1  { font-size:30px; }
+  .rwd-hero-btn { flex-direction:column; align-items:center; gap:12px; }
+  .rwd-hero-wrap { padding:56px 20px 52px !important; }
+
+  .rwd-2col         { grid-template-columns:1fr; gap:28px; }
+  .rwd-3col         { grid-template-columns:1fr; gap:24px; }
+  .rwd-3card        { grid-template-columns:1fr; }
+  .rwd-2card        { grid-template-columns:1fr; }
+  .rwd-primer-grid  { grid-template-columns:1fr; gap:14px; }
+  .rwd-video-grid   { grid-template-columns:1fr; gap:16px; }
+  .rwd-schedule-grid { grid-template-columns:1fr; max-width:100%; }
+  .rwd-contact      { grid-template-columns:1fr; gap:32px; }
+  .rwd-footer       { grid-template-columns:1fr; gap:28px; }
+
+  .rwd-pad-56   { padding-left:20px !important; padding-right:20px !important; }
+  .rwd-pad-top  { padding-top:48px !important; }
+  .rwd-hide-mobile { display:none !important; }
+
+  .rwd-course-row { flex-direction:column !important; align-items:flex-start !important; }
+  .rwd-course-row > a { width:100%; text-align:center; }
+  .rwd-news-row   { flex-wrap:wrap !important; gap:8px !important; }
+}
+</style>
 </helmet>
 
 <div style="background:#F7F1E6; font-family:'Noto Sans TC',sans-serif; color:#2A1A16; min-height:100vh;">
 
-  <!-- ============ 導覽列（內嵌自 SiteNav） ============ -->
-  <div style="display:flex; align-items:center; justify-content:space-between; padding:22px 56px; background:#3A211C; color:#F2E4C8; position:sticky; top:0; z-index:50;">
+  <!-- ============ 導覽列 ============ -->
+  <div class="rwd-nav">
     <a onClick="{{ goHome }}" style="display:flex; align-items:center; gap:14px; text-decoration:none; color:inherit; cursor:pointer;">
       <div style="width:42px; height:42px; border:1.5px solid #C9A24B; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Noto Serif TC',serif; font-size:20px; color:#C9A24B;">覺</div>
       <div>
@@ -25,33 +78,44 @@
         <div style="font-size:11px; letter-spacing:.3em; color:#C9A24B;">HUA YUAN MONASTERY</div>
       </div>
     </a>
-    <div style="display:flex; gap:30px; font-size:15px; letter-spacing:.08em;">
+    <div class="rwd-nav-links">
       <sc-for list="{{ navItems }}" as="it" hint-placeholder-count="6">
         <a onClick="{{ it.onClick }}" style="text-decoration:none; cursor:pointer; color:{{ it.color }}; padding-bottom:4px; border-bottom:{{ it.border }};">{{ it.label }}</a>
       </sc-for>
     </div>
+    <button class="rwd-hamburger" onclick="document.getElementById('mobileMenu').classList.add('open')" aria-label="選單">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <!-- 手機選單 -->
+  <div class="rwd-mobile-menu" id="mobileMenu">
+    <button class="rwd-close" onclick="document.getElementById('mobileMenu').classList.remove('open')">✕</button>
+    <sc-for list="{{ navItems }}" as="it" hint-placeholder-count="6">
+      <a onClick="{{ it.onClick }}" onclick="document.getElementById('mobileMenu').classList.remove('open')" style="text-decoration:none; cursor:pointer; color:#F2E4C8; font-family:'Noto Serif TC',serif; font-size:22px; letter-spacing:.2em;">{{ it.label }}</a>
+    </sc-for>
   </div>
 
   <!-- ============ 視圖：首頁 ============ -->
   <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
   <div>
     <!-- hero -->
-    <div style="padding:96px 56px 92px; background:linear-gradient(180deg,#4A2A22,#3A211C); color:#F7EFD9; text-align:center;">
+    <div class="rwd-hero-wrap" style="padding:96px 56px 92px; background:linear-gradient(180deg,#4A2A22,#3A211C); color:#F7EFD9; text-align:center;">
       <div style="display:inline-flex; align-items:center; gap:14px; margin-bottom:26px;">
         <span style="width:50px; height:1px; background:#C9A24B;"></span>
         <span style="font-size:13px; letter-spacing:.4em; color:#C9A24B;">莊嚴道場 · 智慧明燈</span>
         <span style="width:50px; height:1px; background:#C9A24B;"></span>
       </div>
-      <h1 style="font-family:'Noto Serif TC',serif; font-weight:500; font-size:60px; line-height:1.5; margin:0 0 24px; letter-spacing:.08em;">慈光普照　智慧圓明</h1>
+      <h1 class="rwd-hero-h1">慈光普照　智慧圓明</h1>
       <p style="font-size:16px; line-height:2.1; color:#D9C8A6; max-width:580px; margin:0 auto 40px;">承續千年法脈，弘揚正信佛法。華圓覺苑誠摯邀您共沐法雨，於莊嚴中體會佛法的安定力量。</p>
-      <div style="display:flex; gap:16px; justify-content:center;">
+      <div class="rwd-hero-btn">
         <a onClick="{{ goCourse }}" style="padding:14px 38px; background:#C9A24B; color:#3A211C; font-size:15px; letter-spacing:.1em; font-weight:500; text-decoration:none; cursor:pointer;">立即報名課程</a>
         <a onClick="{{ goAbout }}" style="padding:14px 38px; border:1px solid #C9A24B; color:#C9A24B; font-size:15px; letter-spacing:.1em; text-decoration:none; cursor:pointer;">認識道場</a>
       </div>
     </div>
 
     <!-- 最新公告 -->
-    <div style="padding:72px 56px; max-width:1100px; margin:0 auto;">
+    <div class="rwd-pad-56" style="padding:72px 56px; max-width:1100px; margin:0 auto;">
       <div style="display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:38px;">
         <div>
           <div style="font-size:12px; letter-spacing:.4em; color:#B8893A;">LATEST NEWS</div>
@@ -60,13 +124,13 @@
         <a onClick="{{ goNews }}" style="font-size:14px; color:#B8893A; letter-spacing:.1em; text-decoration:none; cursor:pointer;">查看全部 →</a>
       </div>
       <div style="display:flex; flex-direction:column; gap:14px;">
-        <a onClick="{{ goNews }}" style="display:flex; align-items:center; gap:24px; padding:20px 26px; background:#FFFDF8; border:1px solid rgba(201,162,75,.3); border-left:4px solid #C9A24B; text-decoration:none; color:#2A1A16; cursor:pointer;">
-          <span style="font-family:'Noto Serif TC',serif; font-size:14px; color:#B8893A; width:96px; flex-shrink:0;">2026.03.02</span>
+        <a onClick="{{ goNews }}" class="rwd-news-row" style="display:flex; align-items:center; gap:24px; padding:20px 26px; background:#FFFDF8; border:1px solid rgba(201,162,75,.3); border-left:4px solid #C9A24B; text-decoration:none; color:#2A1A16; cursor:pointer;">
+          <span class="rwd-news-date" style="font-family:'Noto Serif TC',serif; font-size:14px; color:#B8893A; width:96px; flex-shrink:0;">2026.03.02</span>
           <span style="font-size:12px; padding:3px 12px; background:#3A211C; color:#C9A24B; flex-shrink:0;">課程</span>
           <span style="font-size:17px;">2026 春季《般若波羅蜜多心經》研讀班開始報名</span>
         </a>
-        <a onClick="{{ goNews }}" style="display:flex; align-items:center; gap:24px; padding:20px 26px; background:#FFFDF8; border:1px solid rgba(201,162,75,.3); border-left:4px solid #C9A24B; text-decoration:none; color:#2A1A16; cursor:pointer;">
-          <span style="font-family:'Noto Serif TC',serif; font-size:14px; color:#B8893A; width:96px; flex-shrink:0;">2026.05.10</span>
+        <a onClick="{{ goNews }}" class="rwd-news-row" style="display:flex; align-items:center; gap:24px; padding:20px 26px; background:#FFFDF8; border:1px solid rgba(201,162,75,.3); border-left:4px solid #C9A24B; text-decoration:none; color:#2A1A16; cursor:pointer;">
+          <span class="rwd-news-date" style="font-family:'Noto Serif TC',serif; font-size:14px; color:#B8893A; width:96px; flex-shrink:0;">2026.05.10</span>
           <span style="font-size:12px; padding:3px 12px; background:#3A211C; color:#C9A24B; flex-shrink:0;">法會</span>
           <span style="font-size:17px;">浴佛節法會圓滿，感恩大眾護持成就</span>
         </a>
@@ -81,7 +145,7 @@
           <h2 style="font-family:'Noto Serif TC',serif; font-weight:600; font-size:34px; margin:8px 0 6px; letter-spacing:.12em; color:#3A211C;">入門佛法</h2>
           <p style="font-size:15px; color:#8a6f55; margin:0;">循序漸進，建立正知正見</p>
         </div>
-        <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:20px;">
+        <div class="rwd-3card">
           <a href="入佛門法要.pdf" target="_blank" style="background:#FFFDF8; padding:34px 28px; border:1px solid rgba(201,162,75,.4); text-align:center; text-decoration:none; color:#2A1A16; cursor:pointer;">
             <div style="width:54px; height:54px; margin:0 auto 18px; border:1px solid #C9A24B; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Noto Serif TC',serif; color:#C9A24B; font-size:20px;">壹</div>
             <div style="font-family:'Noto Serif TC',serif; font-size:21px; margin-bottom:12px;">入佛門法要</div>
@@ -113,7 +177,7 @@
         </div>
         <a onClick="{{ goVideo }}" style="font-size:14px; color:#B8893A; letter-spacing:.1em; text-decoration:none; cursor:pointer;">更多影片 →</a>
       </div>
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px;">
+      <div class="rwd-2card">
         <a onClick="{{ goVideo }}" style="aspect-ratio:16/9; background:linear-gradient(135deg,#4A2A22,#2A1712); border:1px solid rgba(201,162,75,.4); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; text-decoration:none; cursor:pointer;">
           <div style="width:64px; height:64px; border-radius:50%; background:rgba(201,162,75,.2); display:flex; align-items:center; justify-content:center; font-size:22px; color:#C9A24B;">▶</div>
           <div style="font-size:14px; color:#C9A24B; letter-spacing:.1em;">《心經》的智慧 · 第一講</div>
@@ -137,7 +201,7 @@
     </div>
 
     <!-- 緣起 -->
-    <div style="max-width:1000px; margin:0 auto; padding:70px 40px; display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center;">
+    <div class="rwd-pad-56 rwd-pad-inner" style="max-width:1000px; margin:0 auto; padding:70px 40px;" ><div class="rwd-2col">
       <div>
         <div style="font-size:12px; letter-spacing:.4em; color:#B8893A; margin-bottom:12px;">緣起</div>
         <h2 style="font-family:'Noto Serif TC',serif; font-weight:500; font-size:32px; margin:0 0 24px; letter-spacing:.08em; color:#3A211C; line-height:1.5;">一方清淨地<br>安頓現代人的心</h2>
@@ -145,13 +209,13 @@
         <p style="font-size:15px; color:#6b5a48; line-height:2.1; margin:0;">道場長年舉辦經典研讀與生活佛法課程，接引各年齡層的學佛者，無論初心或久修，皆能在此找到安頓身心的所在。</p>
       </div>
       <div style="aspect-ratio:4/5; background:linear-gradient(150deg,#E7DCC4,#D6C7A4); border:1px solid rgba(201,162,75,.4); display:flex; align-items:center; justify-content:center; color:#a3906a; font-size:14px; letter-spacing:.2em;">道場意境照片</div>
-    </div>
+    </div></div>
 
     <!-- 理念 -->
-    <div style="background:#3A211C; color:#F7EFD9; padding:64px 56px;">
+    <div class="rwd-pad-56" style="background:#3A211C; color:#F7EFD9; padding:64px 56px;">
       <div style="max-width:1000px; margin:0 auto; text-align:center;">
         <div style="font-size:12px; letter-spacing:.4em; color:#C9A24B; margin-bottom:36px;">我們的理念</div>
-        <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:40px;">
+        <div class="rwd-3col">
           <div>
             <div style="font-family:'Noto Serif TC',serif; font-size:34px; color:#C9A24B; margin-bottom:16px;">慈</div>
             <div style="font-family:'Noto Serif TC',serif; font-size:20px; margin-bottom:10px;">慈悲利他</div>
@@ -177,7 +241,7 @@
         <div style="font-size:12px; letter-spacing:.4em; color:#B8893A;">課程時間</div>
         <h2 style="font-family:'Noto Serif TC',serif; font-weight:500; font-size:30px; margin:8px 0 0; letter-spacing:.1em; color:#3A211C;">每週固定課程</h2>
       </div>
-      <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:18px; max-width:680px; margin:0 auto;">
+      <div class="rwd-schedule-grid">
         <div style="background:#FFFDF8; border:1px solid rgba(201,162,75,.4); padding:30px 26px; text-align:center;">
           <div style="font-family:'Noto Serif TC',serif; font-size:18px; color:#B8893A; margin-bottom:8px;">雙週六</div>
           <div style="font-family:'Noto Serif TC',serif; font-size:20px; color:#2A1A16; margin-bottom:6px;">經典研讀</div>
@@ -266,7 +330,7 @@
     <div style="max-width:1080px; margin:0 auto; padding:60px 40px 30px;">
       <div style="font-family:'Noto Serif TC',serif; font-size:24px; color:#3A211C; letter-spacing:.1em; margin-bottom:8px;">經典選讀</div>
       <div style="width:48px; height:2px; background:#C9A24B; margin-bottom:34px;"></div>
-      <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:22px;">
+      <div class="rwd-primer-grid">
         <a onClick="{{ goSutra }}" style="background:#FFFDF8; border:1px solid rgba(201,162,75,.4); padding:32px 28px; text-decoration:none; color:#2A1A16; display:block; cursor:pointer;">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
             <div style="width:46px; height:46px; border:1px solid #C9A24B; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Noto Serif TC',serif; color:#C9A24B; font-size:18px;">經</div>
@@ -387,7 +451,7 @@
       <div style="font-family:'Noto Serif TC',serif; font-size:22px; color:#3A211C; letter-spacing:.08em; margin-bottom:8px;">影片專區</div>
       <div style="width:48px; height:2px; background:#C9A24B; margin-bottom:34px;"></div>
 
-      <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:24px;">
+      <div class="rwd-video-grid">
         <sc-for list="{{ videos }}" as="v" hint-placeholder-count="6">
           <div>
             <div style="position:relative; aspect-ratio:16/9; background:linear-gradient(135deg,#4A2A22,#241310); border:1px solid rgba(201,162,75,.35); display:flex; align-items:center; justify-content:center;">
@@ -422,7 +486,7 @@
 
       <div style="display:flex; flex-direction:column; gap:18px;">
         <sc-for list="{{ courses }}" as="c" hint-placeholder-count="4">
-          <div style="display:flex; align-items:center; gap:28px; background:#FFFDF8; border:1px solid rgba(201,162,75,.4); border-left:4px solid #C9A24B; padding:26px 30px;">
+          <div class="rwd-course-row" style="display:flex; align-items:center; gap:28px; background:#FFFDF8; border:1px solid rgba(201,162,75,.4); border-left:4px solid #C9A24B; padding:26px 30px;">
             <div style="flex:1;">
               <div style="display:flex; align-items:center; gap:12px; margin-bottom:8px;">
                 <span style="font-family:'Noto Serif TC',serif; font-size:21px; color:#2A1A16;">{{ c.name }}</span>
@@ -463,7 +527,7 @@
       <p style="font-size:15px; color:#D9C8A6; margin:18px 0 0;">誠摯歡迎您蒞臨參訪</p>
     </div>
 
-    <div style="max-width:1040px; margin:0 auto; padding:60px 40px; display:grid; grid-template-columns:1fr 1.1fr; gap:48px;">
+    <div class="rwd-pad-56 rwd-contact" style="max-width:1040px; margin:0 auto; padding:60px 40px;">
       <!-- 聯絡資訊 -->
       <div>
         <div style="font-family:'Noto Serif TC',serif; font-size:24px; color:#3A211C; letter-spacing:.1em; margin-bottom:8px;">聯絡資訊</div>
@@ -506,7 +570,7 @@
 
   <!-- ============ 頁尾（內嵌自 SiteFooter） ============ -->
   <div style="background:#3A211C; color:#E4D3B0; font-family:'Noto Sans TC',sans-serif;">
-    <div style="padding:60px 56px 44px; display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:48px;">
+    <div class="rwd-pad-56 rwd-footer" style="padding:60px 56px 44px;">
       <div>
         <div style="font-family:'Noto Serif TC',serif; font-size:26px; letter-spacing:.18em; margin-bottom:18px; color:#F2E4C8;">華圓覺苑</div>
         <p style="font-size:14px; color:#C9A24B; line-height:2; margin:0; font-family:'Noto Serif TC',serif;">願以此功德，莊嚴佛淨土；<br>上報四重恩，下濟三途苦；<br>若有見聞者，悉發菩提心；<br>盡此一報身，同生極樂國。</p>
@@ -523,7 +587,7 @@
         新北市新莊區雙鳳里雙鳳路107號<br>捷運迴龍站，步行13分鐘
       </div>
     </div>
-    <div style="border-top:1px solid rgba(201,162,75,.25); padding:20px 56px; font-size:12px; color:#9c7d52; letter-spacing:.06em;">© 2026 華圓覺苑 HUA YUAN MONASTERY · 版權所有</div>
+    <div class="rwd-pad-56" style="border-top:1px solid rgba(201,162,75,.25); padding:20px 56px; font-size:12px; color:#9c7d52; letter-spacing:.06em;">© 2026 華圓覺苑 HUA YUAN MONASTERY · 版權所有</div>
   </div>
 
 </div>
