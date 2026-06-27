@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;500;600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>* { box-sizing: border-box; } body { margin:0; } @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }</style>
+</helmet>
+
+<div style="background:#F7F1E6; font-family:'Noto Sans TC',sans-serif; color:#2A1A16; min-height:100vh;">
+
+  <!-- ============ 導覽列（內嵌自 SiteNav） ============ -->
+  <div style="display:flex; align-items:center; justify-content:space-between; padding:22px 56px; background:#3A211C; color:#F2E4C8; position:sticky; top:0; z-index:50;">
+    <a onClick="{{ goHome }}" style="display:flex; align-items:center; gap:14px; text-decoration:none; color:inherit; cursor:pointer;">
+      <div style="width:42px; height:42px; border:1.5px solid #C9A24B; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Noto Serif TC',serif; font-size:20px; color:#C9A24B;">覺</div>
+      <div>
+        <div style="font-family:'Noto Serif TC',serif; font-size:22px; font-weight:600; letter-spacing:.16em; color:#F2E4C8;">華圓覺苑</div>
+        <div style="font-size:11px; letter-spacing:.3em; color:#C9A24B;">HUA YUAN MONASTERY</div>
+      </div>
+    </a>
+    <div style="display:flex; gap:30px; font-size:15px; letter-spacing:.08em;">
+      <sc-for list="{{ navItems }}" as="it" hint-placeholder-count="6">
+        <a onClick="{{ it.onClick }}" style="text-decoration:none; cursor:pointer; color:{{ it.color }}; padding-bottom:4px; border-bottom:{{ it.border }};">{{ it.label }}</a>
+      </sc-for>
+    </div>
+  </div>
+
+  <!-- ============ 視圖：首頁 ============ -->
+  <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+  <div>
+    <!-- hero -->
+    <div style="padding:96px 56px 92px; background:linear-gradient(180deg,#4A2A22,#3A211C); color:#F7EFD9; text-align:center;">
+      <div style="display:inline-flex; align-items:center; gap:14px; margin-bottom:26px;">
+        <span style="width:50px; height:1px; background:#C9A24B;"></span>
+        <span style="font-size:13px; letter-spacing:.4em; color:#C9A24B;">莊嚴道場 · 智慧明燈</span>
+        <span style="width:50px; height:1px; background:#C9A24B;"></span>
+      </div>
+      <h1 style="font-family:'Noto Serif TC',serif; font-weight:500; font-size:60px; line-height:1.5; margin:0 0 24px; letter-spacing:.08em;">慈光普照　智慧圓明</h1>
+      <p style="font-size:16px; line-height:2.1; color:#D9C8A6; max-width:580px; margin:0 auto 40px;">承續千年法脈，弘揚正信佛法。華圓覺苑誠摯邀您共沐法雨，於莊嚴中體會佛法的安定力量。</p>
+      <div style="display:flex; gap:16px; justify-content:center;">
+        <a onClick="{{ goCourse }}" style="padding:14px 38px; background:#C9A24B; color:#3A211C; font-size:15px; letter-spacing:.1em; font-weight:500; text-decoration:none; cursor:pointer;">立即報名課程</a>
+        <a onClick="{{ goAbout }}" style="padding:14px 38px; border:1px solid #C9A24B; color:#C9A24B; font-size:15px; letter-spacing:.1em; text-decoration:none; cursor:pointer;">認識道場</a>
+      </div>
+    </div>
+
+    <!-- 最新公告 -->
+    <div style="padding:72px 56px; max-width:1100px; margin:0 auto;">
+      <div style="display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:38px;">
+        <div>
+          <div style="font-size:12px; letter-spacing:.4em; color:#B8893A;">LATEST NEWS</div>
+          <h2 style="font-family:'Noto Serif TC',serif; font-weight:600; font-size:34px; margin:8px 0 0; letter-spacing:.12em; color:#3A211C;">最新公告</h2>
+        </div>
+        <a onClick="{{ goNews }}" style="font-size:14px; color:#B8893A; letter-spacing:.1em; text-decoration:none; cursor:pointer;">查看全部 →</a>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:14px;">
+        <a onClick="{{ goNews }}" style="display:flex; align-items:center; gap:24px; padding:20px 26px; background:#FFFDF8; border:1px solid rgba(201,162,75,.3); border-left:4px solid #C9A24B; text-decoration:none; color:#2A1A16; cursor:pointer;">
+          <span style="font-family:'Noto Serif TC',serif; font-size:14px; color:#B8893A; width:96px; flex-shrink:0;">2026.03.02</span>
+          <span style="font-size:12px; padding:3px 12px; background:#3A211C; color:#C9A24B; flex-shrink:0;">課程</span>
+          <span style="font-size:17px;">2026 春季《般若波羅蜜多心經》研讀班開始報名</span>
+        </a>
+        <a onClick="{{ goNews }}" style="display:flex; align-items:center; gap:24px; padding:20px 26px; background:#FFFDF8; border:1px solid rgba(201,162,75,.3); border-left:4px solid #C9A24B; text-decoration:none; color:#2A1A16; cursor:pointer;">
+          <span style="font-family:'Noto Serif TC',serif; font-size:14px; color:#B8893A; width:96px; flex-shrink:0;">2026.05.10</span>
+          <span style="font-size:12px; padding:3px 12px; background:#3A211C; color:#C9A24B; flex-shrink:0;">法會</span>
+          <span style="font-size:17px;">浴佛節法會圓滿，感恩大眾護持成就</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- 入門佛法 -->
+    <div style="padding:72px 56px; background:#F0E7D4;">
+      <div style="max-width:1100px; margin:0 auto;">
+        <div style="text-align:center; margin-bottom:46px;">
+          <div style="font-size:12px; letter-spacing:.4em; color:#B8893A;">DHARMA PRIMER</div>
+          <h2 style="font-family:'Noto Serif TC',serif; font-weight:600; font-size:34px; margin:8px 0 6px; letter-spacing:.12em; color:#3A211C;">入門佛法</h2>
+          <p style="font-size:15px; color:#8a6f55; margin:0;">循序漸進，建立正知正見</p>
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:20px;">
+          <a onClick="{{ goPrimer }}" style="background:#FFFDF8; padding:34px 28px; border:1px solid rgba(201,162,75,.4); text-align:center; text-decoration:none; color:#2A1A16; cursor:pointer;">
+            <div style="width:54px; height:54px; margin:0 auto 18px; border:1px solid #C9A24B; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Noto Serif TC',serif; color:#C9A24B; font-size:20px;">壹</div>
+            <div style="font-family:'Noto Serif TC',serif; font-size:21px; margin-bottom:12px;">佛門行儀入門</div>
+            <p style="font-size:14px; color:#8a6f55; line-height:1.9; margin:0;">進入道場應有的禮儀與心態。</p>
+            <div style="margin-top:18px; font-size:13px; color:#B8893A; letter-spacing:.1em;">閱讀經文 →</div>
+          </a>
+          <a onClick="{{ goPrimer }}" style="background:#FFFDF8; padding:34px 28px; border:1px solid rgba(201,162,75,.4); text-align:center; text-decoration:none; color:#2A1A16; cursor:pointer;">
+            <div style="width:54px; height:54px; margin:0 auto 18px; border:1px solid #C9A24B; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Noto Serif TC',serif; color:#C9A24B; font-size:20px;">貳</div>
+            <div style="font-family:'Noto Serif TC',serif; font-size:21px; margin-bottom:12px;">三皈五戒淺釋</div>
+            <p style="font-size:14px; color:#8a6f55; line-height:1.9; margin:0;">皈依三寶與五戒的生活實踐。</p>
+            <div style="margin-top:18px; font-size:13px; color:#B8893A; letter-spacing:.1em;">閱讀經文 →</div>
+          </a>
+          <a onClick="{{ goPrimer }}" style="background:#FFFDF8; padding:34px 28px; border:1px solid rgba(201,162,75,.4); text-align:center; text-decoration:none; color:#2A1A16; cursor:pointer;">
+            <div style="width:54px; height:54px; margin:0 auto 18px; border:1px solid #C9A24B; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Noto Serif TC',serif; color:#C9A24B; font-size:20px;">參</div>
+            <div style="font-family:'Noto Serif TC',serif; font-size:21px; margin-bottom:12px;">《心經》導讀</div>
+            <p style="font-size:14px; color:#8a6f55; line-height:1.9; margin:0;">般若智慧，照見五蘊皆空。</p>
+            <div style="margin-top:18px; font-size:13px; color:#B8893A; letter-spacing:.1em;">閱讀經文 →</div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 影音 -->
+    <div style="padding:72px 56px; max-width:1100px; margin:0 auto;">
+      <div style="display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:38px;">
+        <div>
+          <div style="font-size:12px; letter-spacing:.4em; color:#B8893A;">VIDEO TEACHING</div>
+          <h2 style="font-family:'Noto Serif TC',serif; font-weight:600; font-size:34px; margin:8px 0 0; letter-spacing:.12em; color:#3A211C;">弘法影音</h2>
+        </div>
+        <a onClick="{{ goVideo }}" style="font-size:14px; color:#B8893A; letter-spacing:.1em; text-decoration:none; cursor:pointer;">更多影片 →</a>
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px;">
+        <a onClick="{{ goVideo }}" style="aspect-ratio:16/9; background:linear-gradient(135deg,#4A2A22,#2A1712); border:1px solid rgba(201,162,75,.4); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; text-decoration:none; cursor:pointer;">
+          <div style="width:64px; height:64px; border-radius:50%; background:rgba(201,162,75,.2); display:flex; align-items:center; justify-content:center; font-size:22px; color:#C9A24B;">▶</div>
+          <div style="font-size:14px; color:#C9A24B; letter-spacing:.1em;">《心經》的智慧 · 第一講</div>
+        </a>
+        <a onClick="{{ goVideo }}" style="aspect-ratio:16/9; background:linear-gradient(135deg,#4A2A22,#2A1712); border:1px solid rgba(201,162,75,.4); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; text-decoration:none; cursor:pointer;">
+          <div style="width:64px; height:64px; border-radius:50%; background:rgba(201,162,75,.2); display:flex; align-items:center; justify-content:center; font-size:22px; color:#C9A24B;">▶</div>
+          <div style="font-size:14px; color:#C9A24B; letter-spacing:.1em;">生活中的禪 · 安住當下</div>
+        </a>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ============ 視圖：關於我們 ============ -->
+  <sc-if value="{{ isAbout }}" hint-placeholder-val="{{ false }}">
+  <div>
+    <div style="padding:66px 56px 58px; background:linear-gradient(180deg,#4A2A22,#3A211C); color:#F7EFD9; text-align:center;">
+      <div style="font-size:12px; letter-spacing:.5em; color:#C9A24B; margin-bottom:16px;">ABOUT US</div>
+      <h1 style="font-family:'Noto Serif TC',serif; font-weight:500; font-size:44px; margin:0; letter-spacing:.14em;">關於我們</h1>
+      <p style="font-size:15px; color:#D9C8A6; margin:18px 0 0;">華圓覺苑 · 都會中的修行道場</p>
+    </div>
+
+    <!-- 緣起 -->
+    <div style="max-width:1000px; margin:0 auto; padding:70px 40px; display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center;">
+      <div>
+        <div style="font-size:12px; letter-spacing:.4em; color:#B8893A; margin-bottom:12px;">緣起</div>
+        <h2 style="font-family:'Noto Serif TC',serif; font-weight:500; font-size:32px; margin:0 0 24px; letter-spacing:.08em; color:#3A211C; line-height:1.5;">一方清淨地<br>安頓現代人的心</h2>
+        <p style="font-size:15px; color:#6b5a48; line-height:2.1; margin:0 0 16px;">華圓覺苑創立於繁華都會之中，以「弘揚正信佛法、利益一切眾生」為宗旨。我們相信，修行不必遠離紅塵，而在於每一個當下的覺照。</p>
+        <p style="font-size:15px; color:#6b5a48; line-height:2.1; margin:0;">道場長年舉辦經典研讀與生活佛法課程，接引各年齡層的學佛者，無論初心或久修，皆能在此找到安頓身心的所在。</p>
+      </div>
+      <div style="aspect-ratio:4/5; background:linear-gradient(150deg,#E7DCC4,#D6C7A4); border:1px solid rgba(201,162,75,.4); display:flex; align-items:center; justify-content:center; color:#a3906a; font-size:14px; letter-spacing:.2em;">道場意境照片</div>
+    </div>
+
+    <!-- 理念 -->
+    <div style="background:#3A211C; color:#F7EFD9; padding:64px 56px;">
+      <div style="max-width:1000px; margin:0 auto; text-align:center;">
+        <div style="font-size:12px; letter-spacing:.4em; color:#C9A24B; margin-bottom:36px;">我們的理念</div>
+        <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:40px;">
+          <div>
+            <div style="font-family:'Noto Serif TC',serif; font-size:34px; color:#C9A24B; margin-bottom:16px;">慈</div>
+            <div style="font-family:'Noto Serif TC',serif; font-size:20px; margin-bottom:10px;">慈悲利他</div>
+            <p style="font-size:14px; color:#D9C8A6; line-height:1.95; margin:0;">以慈悲心待人，以利他行入世，將佛法的溫度帶入社會。</p>
+          </div>
+          <div>
+            <div style="font-family:'Noto Serif TC',serif; font-size:34px; color:#C9A24B; margin-bottom:16px;">智</div>
+            <div style="font-family:'Noto Serif TC',serif; font-size:20px; margin-bottom:10px;">智慧明燈</div>
+            <p style="font-size:14px; color:#D9C8A6; line-height:1.95; margin:0;">研讀經典、深入法義，以般若智慧照破無明煩惱。</p>
+          </div>
+          <div>
+            <div style="font-family:'Noto Serif TC',serif; font-size:34px; color:#C9A24B; margin-bottom:16px;">淨</div>
+            <div style="font-family:'Noto Serif TC',serif; font-size:20px; margin-bottom:10px;">清淨自在</div>
+            <p style="font-size:14px; color:#D9C8A6; line-height:1.95; margin:0;">持戒修定，淨化身心，於喧囂中安住一份自在清涼。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 課程時間 -->
+    <div style="max-width:1000px; margin:0 auto; padding:70px 40px;">
+      <div style="text-align:center; margin-bottom:42px;">
+        <div style="font-size:12px; letter-spacing:.4em; color:#B8893A;">課程時間</div>
+        <h2 style="font-family:'Noto Serif TC',serif; font-weight:500; font-size:30px; margin:8px 0 0; letter-spacing:.1em; color:#3A211C;">每週固定課程</h2>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:18px; max-width:680px; margin:0 auto;">
+        <div style="background:#FFFDF8; border:1px solid rgba(201,162,75,.4); padding:30px 26px; text-align:center;">
+          <div style="font-family:'Noto Serif TC',serif; font-size:18px; color:#B8893A; margin-bottom:8px;">週二</div>
+          <div style="font-family:'Noto Serif TC',serif; font-size:20px; color:#2A1A16; margin-bottom:6px;">經典研讀</div>
+          <div style="font-size:14px; color:#8a6f55;">19:30 – 21:00</div>
+        </div>
+        <div style="background:#FFFDF8; border:1px solid rgba(201,162,75,.4); padding:30px 26px; text-align:center;">
+          <div style="font-family:'Noto Serif TC',serif; font-size:18px; color:#B8893A; margin-bottom:8px;">週六</div>
+          <div style="font-family:'Noto Serif TC',serif; font-size:20px; color:#2A1A16; margin-bottom:6px;">生活佛法</div>
+          <div style="font-size:14px; color:#8a6f55;">14:00 – 16:00</div>
+        </div>
+      </div>
+      <div style="text-align:center; margin-top:40px;">
+        <a onClick="{{ goCourse }}" style="display:inline-block; padding:14px 40px; background:#C9A24B; color:#3A211C; font-size:15px; letter-spacing:.1em; font-weight:500; text-decoration:none; cursor:pointer;">查看課程並報名 →</a>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ============ 視圖：最新公告 ============ -->
+  <sc-if value="{{ isNews }}" hint-placeholder-val="{{ false }}">
+  <div>
+    <div style="padding:66px 56px 58px; background:linear-gradient(180deg,#4A2A22,#3A211C); color:#F7EFD9; text-align:center;">
+      <div style="font-size:12px; letter-spacing:.5em; color:#C9A24B; margin-bottom:16px;">LATEST NEWS</div>
+      <h1 style="font-family:'Noto Serif TC',serif; font-weight:500; font-size:44px; margin:0; letter-spacing:.14em;">最新公告</h1>
+      <p style="font-size:15px; color:#D9C8A6; margin:18px 0 0;">課程招生 · 法會活動 · 道場消息</p>
+    </div>
+
+    <!-- 跑馬燈 -->
+    <div style="background:#3A211C; border-top:1px solid rgba(201,162,75,.3); border-bottom:1px solid rgba(201,162,75,.3); overflow:hidden; display:flex; align-items:stretch;">
+      <div style="flex-shrink:0; background:#C9A24B; color:#3A211C; display:flex; align-items:center; padding:0 24px; font-family:'Noto Serif TC',serif; font-size:15px; letter-spacing:.18em;">最新消息</div>
+      <div style="flex:1; overflow:hidden; position:relative;">
+        <div style="display:inline-flex; align-items:center; white-space:nowrap; padding:13px 0; animation:marquee 34s linear infinite; will-change:transform;">
+          <span style="display:inline-flex; align-items:center; gap:12px; padding:0 30px; color:#F2E4C8; font-size:15px;"><span style="color:#C9A24B; font-size:10px;">◆</span>浴佛節法會圓滿，感恩大眾護持</span>
+          <span style="display:inline-flex; align-items:center; gap:12px; padding:0 30px; color:#F2E4C8; font-size:15px;"><span style="color:#C9A24B; font-size:10px;">◆</span>2026 春季《心經》研讀班開始報名</span>
+          <span style="display:inline-flex; align-items:center; gap:12px; padding:0 30px; color:#F2E4C8; font-size:15px;"><span style="color:#C9A24B; font-size:10px;">◆</span>「初心學佛」線上佛法課程正式上線</span>
+          <span style="display:inline-flex; align-items:center; gap:12px; padding:0 30px; color:#F2E4C8; font-size:15px;"><span style="color:#C9A24B; font-size:10px;">◆</span>新春祈福法會暨點燈　正月初一至初三</span>
+          <span style="display:inline-flex; align-items:center; gap:12px; padding:0 30px; color:#F2E4C8; font-size:15px;"><span style="color:#C9A24B; font-size:10px;">◆</span>兒童讀經班寒假梯次開放報名</span>
+          <span style="display:inline-flex; align-items:center; gap:12px; padding:0 30px; color:#F2E4C8; font-size:15px;"><span style="color:#C9A24B; font-size:10px;">◆</span>浴佛節法會圓滿，感恩大眾護持</span>
+          <span style="display:inline-flex; align-items:center; gap:12px; padding:0 30px; color:#F2E4C8; font-size:15px;"><span style="color:#C9A24B; font-size:10px;">◆</span>2026 春季《心經》研讀班開始報名</span>
+          <span style="display:inline-flex; align-items:center; gap:12px; padding:0 30px; color:#F2E4C8; font-size:15px;"><span style="color:#C9A24B; font-size:10px;">◆</span>「初心學佛」線上佛法課程正式上線</span>
+          <span style="display:inline-flex; align-items:center; gap:12px; padding:0 30px; color:#F2E4C8; font-size:15px;"><span style="color:#C9A24B; font-size:10px;">◆</span>新春祈福法會暨點燈　正月初一至初三</span>
+          <span style="display:inline-flex; align-items:center; gap:12px; padding:0 30px; color:#F2E4C8; font-size:15px;"><span style="color:#C9A24B; font-size:10px;">◆</span>兒童讀經班寒假梯次開放報名</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="max-width:980px; margin:0 auto; padding:48px 40px 80px;">
+      <div style="display:flex; gap:12px; margin-bottom:36px; flex-wrap:wrap;">
+        <sc-for list="{{ filters }}" as="f" hint-placeholder-count="4">
+          <span onClick="{{ f.onClick }}" style="cursor:pointer; user-select:none; padding:8px 22px; background:{{ f.bg }}; border:{{ f.border }}; color:{{ f.color }}; font-size:14px; letter-spacing:.1em;">{{ f.label }}</span>
+        </sc-for>
+      </div>
+
+      <sc-if value="{{ empty }}">
+        <div style="padding:48px 4px; color:#8a6f55; font-size:15px; letter-spacing:.05em;">此分類目前尚無公告。</div>
+      </sc-if>
+
+      <sc-for list="{{ posts }}" as="p" hint-placeholder-count="8">
+        <div style="display:flex; gap:28px; padding:26px 4px; border-bottom:1px solid rgba(201,162,75,.25); align-items:flex-start;">
+          <div style="flex-shrink:0; width:100px; text-align:center;">
+            <div style="font-family:'Noto Serif TC',serif; font-size:22px; color:#3A211C; line-height:1.1;">{{ p.day }}</div>
+            <div style="font-size:12px; color:#B8893A; letter-spacing:.1em; margin-top:2px;">{{ p.ym }}</div>
+          </div>
+          <div style="flex-shrink:0; padding-top:3px;">
+            <span style="font-size:12px; padding:4px 12px; background:#3A211C; color:#C9A24B;">{{ p.tag }}</span>
+          </div>
+          <div style="flex:1;">
+            <div style="font-family:'Noto Serif TC',serif; font-size:19px; color:#2A1A16; margin-bottom:7px;">{{ p.title }}</div>
+            <p style="font-size:14px; color:#8a6f55; line-height:1.9; margin:0;">{{ p.desc }}</p>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ============ 視圖：入門佛法 ============ -->
+  <sc-if value="{{ isPrimer }}" hint-placeholder-val="{{ false }}">
+  <div>
+    <div style="padding:66px 56px 58px; background:linear-gradient(180deg,#4A2A22,#3A211C); color:#F7EFD9; text-align:center;">
+      <div style="font-size:12px; letter-spacing:.5em; color:#C9A24B; margin-bottom:16px;">DHARMA PRIMER</div>
+      <h1 style="font-family:'Noto Serif TC',serif; font-weight:500; font-size:44px; margin:0; letter-spacing:.14em;">入門佛法</h1>
+      <p style="font-size:15px; color:#D9C8A6; margin:18px 0 0; line-height:2; max-width:560px; margin-left:auto; margin-right:auto;">學佛從一念清淨心開始。以下為道場整理之經文與入門文獻，<br>歡迎點閱、下載，依次第循序漸進。</p>
+    </div>
+
+    <div style="max-width:1080px; margin:0 auto; padding:60px 40px 30px;">
+      <div style="font-family:'Noto Serif TC',serif; font-size:24px; color:#3A211C; letter-spacing:.1em; margin-bottom:8px;">經典選讀</div>
+      <div style="width:48px; height:2px; background:#C9A24B; margin-bottom:34px;"></div>
+      <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:22px;">
+        <a onClick="{{ goSutra }}" style="background:#FFFDF8; border:1px solid rgba(201,162,75,.4); padding:32px 28px; text-decoration:none; color:#2A1A16; display:block; cursor:pointer;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+            <div style="width:46px; height:46px; border:1px solid #C9A24B; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Noto Serif TC',serif; color:#C9A24B; font-size:18px;">經</div>
+            <span style="font-size:11px; padding:3px 10px; background:rgba(110,140,80,.15); color:#5f7a3e;">可閱讀</span>
+          </div>
+          <div style="font-family:'Noto Serif TC',serif; font-size:21px; margin-bottom:10px;">般若波羅蜜多心經</div>
+          <p style="font-size:14px; color:#8a6f55; line-height:1.9; margin:0 0 18px;">二百六十字攝盡般若精要，照見五蘊皆空，度一切苦厄。</p>
+          <span style="font-size:13px; color:#B8893A; letter-spacing:.1em;">線上閱讀 →</span>
+        </a>
+        <div style="background:#FFFDF8; border:1px solid rgba(201,162,75,.25); padding:32px 28px; opacity:.86;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+            <div style="width:46px; height:46px; border:1px solid #cdb98a; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Noto Serif TC',serif; color:#cdb98a; font-size:18px;">儀</div>
+            <span style="font-size:11px; padding:3px 10px; background:rgba(184,137,58,.12); color:#a07d3e;">整理中</span>
+          </div>
+          <div style="font-family:'Noto Serif TC',serif; font-size:21px; margin-bottom:10px;">佛門行儀入門</div>
+          <p style="font-size:14px; color:#8a6f55; line-height:1.9; margin:0 0 18px;">進入道場應有的禮儀與威儀，從合掌、問訊、禮佛開始。</p>
+          <span style="font-size:13px; color:#bca36e; letter-spacing:.1em;">即將上線</span>
+        </div>
+        <div style="background:#FFFDF8; border:1px solid rgba(201,162,75,.25); padding:32px 28px; opacity:.86;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+            <div style="width:46px; height:46px; border:1px solid #cdb98a; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Noto Serif TC',serif; color:#cdb98a; font-size:18px;">戒</div>
+            <span style="font-size:11px; padding:3px 10px; background:rgba(184,137,58,.12); color:#a07d3e;">整理中</span>
+          </div>
+          <div style="font-family:'Noto Serif TC',serif; font-size:21px; margin-bottom:10px;">三皈五戒淺釋</div>
+          <p style="font-size:14px; color:#8a6f55; line-height:1.9; margin:0 0 18px;">皈依三寶的真實意義，與五戒如何安頓日常生活。</p>
+          <span style="font-size:13px; color:#bca36e; letter-spacing:.1em;">即將上線</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="max-width:1080px; margin:0 auto; padding:30px 40px 80px;">
+      <div style="font-family:'Noto Serif TC',serif; font-size:24px; color:#3A211C; letter-spacing:.1em; margin-bottom:8px;">學佛次第</div>
+      <div style="width:48px; height:2px; background:#C9A24B; margin-bottom:34px;"></div>
+      <div style="display:flex; flex-direction:column; gap:2px;">
+        <div style="display:flex; gap:26px; padding:24px 26px; background:#FFFDF8; border:1px solid rgba(201,162,75,.3); align-items:center;">
+          <div style="font-family:'Noto Serif TC',serif; font-size:30px; color:#C9A24B; width:46px;">壹</div>
+          <div style="flex:1;">
+            <div style="font-family:'Noto Serif TC',serif; font-size:19px; margin-bottom:4px;">建立正信　認識三寶</div>
+            <p style="font-size:14px; color:#8a6f55; margin:0; line-height:1.8;">理解佛、法、僧三寶的意義，破除迷信，建立對佛法的正確認知。</p>
+          </div>
+        </div>
+        <div style="display:flex; gap:26px; padding:24px 26px; background:#FFFDF8; border:1px solid rgba(201,162,75,.3); align-items:center;">
+          <div style="font-family:'Noto Serif TC',serif; font-size:30px; color:#C9A24B; width:46px;">貳</div>
+          <div style="flex:1;">
+            <div style="font-family:'Noto Serif TC',serif; font-size:19px; margin-bottom:4px;">受持五戒　安頓身心</div>
+            <p style="font-size:14px; color:#8a6f55; margin:0; line-height:1.8;">以五戒為生活準則，培養慈悲與自律，奠定修行的根基。</p>
+          </div>
+        </div>
+        <div style="display:flex; gap:26px; padding:24px 26px; background:#FFFDF8; border:1px solid rgba(201,162,75,.3); align-items:center;">
+          <div style="font-family:'Noto Serif TC',serif; font-size:30px; color:#C9A24B; width:46px;">參</div>
+          <div style="flex:1;">
+            <div style="font-family:'Noto Serif TC',serif; font-size:19px; margin-bottom:4px;">研讀經典　深入法義</div>
+            <p style="font-size:14px; color:#8a6f55; margin:0; line-height:1.8;">由《心經》、《金剛經》入門，逐步深入般若智慧與大乘法義。</p>
+          </div>
+        </div>
+        <div style="display:flex; gap:26px; padding:24px 26px; background:#FFFDF8; border:1px solid rgba(201,162,75,.3); align-items:center;">
+          <div style="font-family:'Noto Serif TC',serif; font-size:30px; color:#C9A24B; width:46px;">肆</div>
+          <div style="flex:1;">
+            <div style="font-family:'Noto Serif TC',serif; font-size:19px; margin-bottom:4px;">定課實修　行解並重</div>
+            <p style="font-size:14px; color:#8a6f55; margin:0; line-height:1.8;">建立每日定課，將佛法落實於日常，解行相應。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ============ 視圖：心經閱讀 ============ -->
+  <sc-if value="{{ isSutra }}" hint-placeholder-val="{{ false }}">
+  <div>
+    <div style="padding:60px 56px 50px; background:linear-gradient(180deg,#4A2A22,#3A211C); color:#F7EFD9; text-align:center;">
+      <a onClick="{{ goPrimer }}" style="font-size:13px; color:#C9A24B; text-decoration:none; letter-spacing:.1em; cursor:pointer;">← 返回入門佛法</a>
+      <h1 style="font-family:'Noto Serif TC',serif; font-weight:500; font-size:42px; margin:18px 0 10px; letter-spacing:.16em;">般若波羅蜜多心經</h1>
+      <p style="font-size:14px; color:#C9A24B; margin:0; letter-spacing:.2em;">唐 · 三藏法師 玄奘 譯</p>
+    </div>
+
+    <div style="max-width:760px; margin:0 auto; padding:64px 40px;">
+      <div style="background:#FFFDF8; border:1px solid rgba(201,162,75,.4); padding:60px 56px; box-shadow:0 2px 20px rgba(58,33,28,.06);">
+        <p style="font-family:'Noto Serif TC',serif; font-size:21px; line-height:2.6; color:#2A1A16; margin:0; letter-spacing:.04em; text-align:justify;">
+          觀自在菩薩，行深般若波羅蜜多時，照見五蘊皆空，度一切苦厄。舍利子，色不異空，空不異色，色即是空，空即是色，受想行識，亦復如是。
+        </p>
+        <div style="height:1px; background:rgba(201,162,75,.3); margin:34px 0;"></div>
+        <p style="font-family:'Noto Serif TC',serif; font-size:21px; line-height:2.6; color:#2A1A16; margin:0; letter-spacing:.04em; text-align:justify;">
+          舍利子，是諸法空相，不生不滅，不垢不淨，不增不減。是故空中無色，無受想行識，無眼耳鼻舌身意，無色聲香味觸法，無眼界，乃至無意識界。無無明，亦無無明盡，乃至無老死，亦無老死盡。無苦集滅道，無智亦無得。
+        </p>
+        <div style="height:1px; background:rgba(201,162,75,.3); margin:34px 0;"></div>
+        <p style="font-family:'Noto Serif TC',serif; font-size:21px; line-height:2.6; color:#2A1A16; margin:0; letter-spacing:.04em; text-align:justify;">
+          以無所得故，菩提薩埵，依般若波羅蜜多故，心無罣礙。無罣礙故，無有恐怖，遠離顛倒夢想，究竟涅槃。三世諸佛，依般若波羅蜜多故，得阿耨多羅三藐三菩提。
+        </p>
+        <div style="height:1px; background:rgba(201,162,75,.3); margin:34px 0;"></div>
+        <p style="font-family:'Noto Serif TC',serif; font-size:21px; line-height:2.6; color:#2A1A16; margin:0; letter-spacing:.04em; text-align:justify;">
+          故知般若波羅蜜多，是大神咒，是大明咒，是無上咒，是無等等咒，能除一切苦，真實不虛。故說般若波羅蜜多咒，即說咒曰：
+        </p>
+        <p style="font-family:'Noto Serif TC',serif; font-size:22px; line-height:2.4; color:#3A211C; margin:30px 0 0; letter-spacing:.06em; text-align:center; font-weight:500;">
+          揭諦揭諦　波羅揭諦<br>波羅僧揭諦　菩提薩婆訶
+        </p>
+      </div>
+
+      <div style="display:flex; gap:14px; margin-top:28px; justify-content:center;">
+        <span style="padding:12px 30px; background:#C9A24B; color:#3A211C; font-size:14px; letter-spacing:.1em; font-weight:500;">下載 PDF</span>
+        <span style="padding:12px 30px; border:1px solid #C9A24B; color:#B8893A; font-size:14px; letter-spacing:.1em;">列印經文</span>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ============ 視圖：弘法影音 ============ -->
+  <sc-if value="{{ isVideo }}" hint-placeholder-val="{{ false }}">
+  <div>
+    <div style="padding:66px 56px 58px; background:linear-gradient(180deg,#4A2A22,#3A211C); color:#F7EFD9; text-align:center;">
+      <div style="font-size:12px; letter-spacing:.5em; color:#C9A24B; margin-bottom:16px;">VIDEO TEACHING</div>
+      <h1 style="font-family:'Noto Serif TC',serif; font-weight:500; font-size:44px; margin:0; letter-spacing:.14em;">弘法影音</h1>
+      <p style="font-size:15px; color:#D9C8A6; margin:18px 0 0;">法師開示 · 經典講座 · 道場紀實</p>
+    </div>
+
+    <div style="max-width:1080px; margin:0 auto; padding:60px 40px 80px;">
+
+      <!-- 主打影片：YouTube 嵌入位置 -->
+      <div style="margin-bottom:18px; font-family:'Noto Serif TC',serif; font-size:22px; color:#3A211C; letter-spacing:.08em;">本月主打</div>
+      <div style="position:relative; aspect-ratio:16/9; background:linear-gradient(135deg,#4A2A22,#241310); border:1px solid rgba(201,162,75,.4); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px; margin-bottom:14px;">
+        <div style="width:88px; height:88px; border-radius:50%; background:rgba(201,162,75,.18); display:flex; align-items:center; justify-content:center; font-size:30px; color:#C9A24B;">▶</div>
+        <div style="font-family:'Noto Serif TC',serif; font-size:24px; color:#F7EFD9; letter-spacing:.1em;">《心經》的智慧 · 第一講</div>
+        <div style="font-size:13px; color:#C9A24B; letter-spacing:.14em;">YouTube 影片嵌入位置 — 貼上影片連結即可播放</div>
+      </div>
+      <p style="font-size:14px; color:#8a6f55; line-height:1.9; max-width:760px; margin:0 0 56px;">常住法師逐句導讀《般若波羅蜜多心經》，從「照見五蘊皆空」談起，引領大眾體會般若智慧在生活中的運用。</p>
+
+      <div style="font-family:'Noto Serif TC',serif; font-size:22px; color:#3A211C; letter-spacing:.08em; margin-bottom:8px;">影片專區</div>
+      <div style="width:48px; height:2px; background:#C9A24B; margin-bottom:34px;"></div>
+
+      <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:24px;">
+        <sc-for list="{{ videos }}" as="v" hint-placeholder-count="6">
+          <div>
+            <div style="position:relative; aspect-ratio:16/9; background:linear-gradient(135deg,#4A2A22,#241310); border:1px solid rgba(201,162,75,.35); display:flex; align-items:center; justify-content:center;">
+              <div style="width:52px; height:52px; border-radius:50%; background:rgba(201,162,75,.18); display:flex; align-items:center; justify-content:center; font-size:18px; color:#C9A24B;">▶</div>
+              <span style="position:absolute; right:8px; bottom:8px; font-size:11px; padding:2px 8px; background:rgba(0,0,0,.55); color:#F2E4C8;">{{ v.dur }}</span>
+            </div>
+            <div style="font-family:'Noto Serif TC',serif; font-size:17px; margin:14px 0 4px; color:#2A1A16;">{{ v.title }}</div>
+            <div style="font-size:13px; color:#a07d3e;">{{ v.series }}</div>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="margin-top:46px; padding:24px 28px; background:#F0E7D4; border:1px dashed rgba(184,137,58,.5); font-size:13px; color:#8a6f55; line-height:1.9;">
+        ✎ 影片管理說明：每個影格皆為 YouTube 嵌入位置，提供 YouTube 連結後即可替換為可播放的影片，<br>支援自動帶出標題與縮圖。
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ============ 視圖：課程報名 ============ -->
+  <sc-if value="{{ isCourse }}" hint-placeholder-val="{{ false }}">
+  <div>
+    <div style="padding:66px 56px 58px; background:linear-gradient(180deg,#4A2A22,#3A211C); color:#F7EFD9; text-align:center;">
+      <div style="font-size:12px; letter-spacing:.5em; color:#C9A24B; margin-bottom:16px;">COURSE REGISTRATION</div>
+      <h1 style="font-family:'Noto Serif TC',serif; font-weight:500; font-size:44px; margin:0; letter-spacing:.14em;">課程報名</h1>
+      <p style="font-size:15px; color:#D9C8A6; margin:18px 0 0;">歡迎初學者與長年護持者一同精進共學</p>
+    </div>
+
+    <div style="max-width:980px; margin:0 auto; padding:60px 40px 40px;">
+      <div style="font-family:'Noto Serif TC',serif; font-size:24px; color:#3A211C; letter-spacing:.1em; margin-bottom:8px;">近期開課</div>
+      <div style="width:48px; height:2px; background:#C9A24B; margin-bottom:34px;"></div>
+
+      <div style="display:flex; flex-direction:column; gap:18px;">
+        <sc-for list="{{ courses }}" as="c" hint-placeholder-count="4">
+          <div style="display:flex; align-items:center; gap:28px; background:#FFFDF8; border:1px solid rgba(201,162,75,.4); border-left:4px solid #C9A24B; padding:26px 30px;">
+            <div style="flex:1;">
+              <div style="display:flex; align-items:center; gap:12px; margin-bottom:8px;">
+                <span style="font-family:'Noto Serif TC',serif; font-size:21px; color:#2A1A16;">{{ c.name }}</span>
+                <span style="font-size:11px; padding:3px 10px; background:rgba(184,137,58,.14); color:#a07d3e;">{{ c.level }}</span>
+              </div>
+              <div style="font-size:14px; color:#8a6f55; line-height:1.9;">{{ c.meta }}</div>
+            </div>
+            <a href="#form" style="padding:11px 28px; background:#3A211C; color:#C9A24B; font-size:14px; letter-spacing:.1em; text-decoration:none; flex-shrink:0;">{{ c.action }}</a>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <!-- Google 表單 -->
+    <div id="form" style="max-width:980px; margin:0 auto; padding:30px 40px 80px;">
+      <div style="font-family:'Noto Serif TC',serif; font-size:24px; color:#3A211C; letter-spacing:.1em; margin-bottom:8px;">線上報名表單</div>
+      <div style="width:48px; height:2px; background:#C9A24B; margin-bottom:28px;"></div>
+
+      <div style="background:#FFFDF8; border:1px solid rgba(201,162,75,.4); padding:48px 40px; text-align:center;">
+        <div style="width:64px; height:64px; margin:0 auto 22px; border:1px solid #C9A24B; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:26px; color:#C9A24B;">✶</div>
+        <div style="font-family:'Noto Serif TC',serif; font-size:22px; color:#3A211C; margin-bottom:12px;">填寫 Google 報名表單</div>
+        <p style="font-size:14px; color:#8a6f55; line-height:1.9; max-width:520px; margin:0 auto 28px;">點選下方按鈕前往 Google 表單填寫報名資料，送出後將由道場義工與您聯繫確認名額與課程細節。</p>
+        <a href="https://forms.gle/" target="_blank" style="display:inline-block; padding:15px 44px; background:#C9A24B; color:#3A211C; font-size:16px; letter-spacing:.1em; font-weight:500; text-decoration:none;">前往報名表單 →</a>
+        <div style="margin-top:30px; padding-top:24px; border-top:1px dashed rgba(184,137,58,.4); font-size:13px; color:#a07d3e; line-height:1.9;">
+          ✎ 設定說明：將 Google 表單的分享連結貼到上方按鈕，或改用嵌入碼把表單直接顯示於本頁。
+        </div>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ============ 視圖：聯絡與交通 ============ -->
+  <sc-if value="{{ isContact }}" hint-placeholder-val="{{ false }}">
+  <div>
+    <div style="padding:66px 56px 58px; background:linear-gradient(180deg,#4A2A22,#3A211C); color:#F7EFD9; text-align:center;">
+      <div style="font-size:12px; letter-spacing:.5em; color:#C9A24B; margin-bottom:16px;">CONTACT &amp; LOCATION</div>
+      <h1 style="font-family:'Noto Serif TC',serif; font-weight:500; font-size:44px; margin:0; letter-spacing:.14em;">聯絡與交通</h1>
+      <p style="font-size:15px; color:#D9C8A6; margin:18px 0 0;">誠摯歡迎您蒞臨參訪</p>
+    </div>
+
+    <div style="max-width:1040px; margin:0 auto; padding:60px 40px; display:grid; grid-template-columns:1fr 1.1fr; gap:48px;">
+      <!-- 聯絡資訊 -->
+      <div>
+        <div style="font-family:'Noto Serif TC',serif; font-size:24px; color:#3A211C; letter-spacing:.1em; margin-bottom:8px;">聯絡資訊</div>
+        <div style="width:48px; height:2px; background:#C9A24B; margin-bottom:30px;"></div>
+        <div style="display:flex; flex-direction:column; gap:24px;">
+          <div style="display:flex; gap:18px; align-items:flex-start;">
+            <div style="width:40px; height:40px; border:1px solid #C9A24B; border-radius:50%; display:flex; align-items:center; justify-content:center; color:#C9A24B; flex-shrink:0; font-size:16px;">⌖</div>
+            <div>
+              <div style="font-family:'Noto Serif TC',serif; font-size:16px; color:#3A211C; margin-bottom:4px;">道場地址</div>
+              <div style="font-size:14px; color:#6b5a48; line-height:1.8;">116 台北市文山區木柵路一段 88 號</div>
+            </div>
+          </div>
+          <div style="display:flex; gap:18px; align-items:flex-start;">
+            <div style="width:40px; height:40px; border:1px solid #C9A24B; border-radius:50%; display:flex; align-items:center; justify-content:center; color:#C9A24B; flex-shrink:0; font-size:16px;">☏</div>
+            <div>
+              <div style="font-family:'Noto Serif TC',serif; font-size:16px; color:#3A211C; margin-bottom:4px;">電話</div>
+              <div style="font-size:14px; color:#6b5a48; line-height:1.8;">(02) 2888-0000<br>服務時間 09:00 – 17:00（週一公休）</div>
+            </div>
+          </div>
+          <div style="display:flex; gap:18px; align-items:flex-start;">
+            <div style="width:40px; height:40px; border:1px solid #C9A24B; border-radius:50%; display:flex; align-items:center; justify-content:center; color:#C9A24B; flex-shrink:0; font-size:15px;">✉</div>
+            <div>
+              <div style="font-family:'Noto Serif TC',serif; font-size:16px; color:#3A211C; margin-bottom:4px;">電子信箱</div>
+              <div style="font-size:14px; color:#6b5a48; line-height:1.8;">info@huayuan.org.tw</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="font-family:'Noto Serif TC',serif; font-size:24px; color:#3A211C; letter-spacing:.1em; margin:42px 0 8px;">交通方式</div>
+        <div style="width:48px; height:2px; background:#C9A24B; margin-bottom:24px;"></div>
+        <div style="display:flex; flex-direction:column; gap:16px; font-size:14px; color:#6b5a48; line-height:1.8;">
+          <div style="display:flex; gap:14px;"><span style="font-size:12px; padding:3px 11px; background:#3A211C; color:#C9A24B; height:fit-content; flex-shrink:0;">捷運</span><span>文湖線「木柵站」2 號出口，步行約 8 分鐘。</span></div>
+          <div style="display:flex; gap:14px;"><span style="font-size:12px; padding:3px 11px; background:#3A211C; color:#C9A24B; height:fit-content; flex-shrink:0;">公車</span><span>搭乘 251、253、660 至「木柵路口」站下車，步行約 3 分鐘。</span></div>
+          <div style="display:flex; gap:14px;"><span style="font-size:12px; padding:3px 11px; background:#3A211C; color:#C9A24B; height:fit-content; flex-shrink:0;">開車</span><span>道場備有少量停車位，建議多利用大眾運輸前來。</span></div>
+        </div>
+      </div>
+
+      <!-- 地圖 -->
+      <div>
+        <div style="font-family:'Noto Serif TC',serif; font-size:24px; color:#3A211C; letter-spacing:.1em; margin-bottom:8px;">道場位置</div>
+        <div style="width:48px; height:2px; background:#C9A24B; margin-bottom:30px;"></div>
+        <div style="aspect-ratio:4/3; background:repeating-linear-gradient(45deg,#EDE4CF,#EDE4CF 14px,#E6DBC2 14px,#E6DBC2 28px); border:1px solid rgba(201,162,75,.4); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px;">
+          <div style="width:54px; height:54px; border-radius:50%; background:#C9A24B; display:flex; align-items:center; justify-content:center; color:#3A211C; font-size:24px;">⌖</div>
+          <div style="font-size:14px; color:#8a6f55; letter-spacing:.12em;">Google 地圖嵌入位置</div>
+        </div>
+        <p style="font-size:13px; color:#a07d3e; line-height:1.9; margin:16px 0 0;">✎ 設定說明：貼上 Google 地圖嵌入碼，即可在此顯示互動式道場位置與導航。</p>
+
+        <div style="margin-top:28px; background:#FFFDF8; border:1px solid rgba(201,162,75,.4); padding:26px 28px;">
+          <div style="font-family:'Noto Serif TC',serif; font-size:17px; color:#3A211C; margin-bottom:10px;">參訪小叮嚀</div>
+          <p style="font-size:14px; color:#6b5a48; line-height:1.95; margin:0;">進入大殿請保持安靜、關閉手機鈴聲，著裝以端莊樸素為宜。如需團體參訪或導覽，歡迎來電預約。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ============ 頁尾（內嵌自 SiteFooter） ============ -->
+  <div style="background:#3A211C; color:#E4D3B0; font-family:'Noto Sans TC',sans-serif;">
+    <div style="padding:60px 56px 44px; display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:48px;">
+      <div>
+        <div style="font-family:'Noto Serif TC',serif; font-size:26px; letter-spacing:.18em; margin-bottom:18px; color:#F2E4C8;">華圓覺苑</div>
+        <p style="font-size:14px; color:#C9A24B; line-height:2; margin:0; font-family:'Noto Serif TC',serif;">願以此功德，莊嚴佛淨土；<br>上報四重恩，下濟三途苦。</p>
+      </div>
+      <div style="font-size:14px; line-height:2.2;">
+        <div style="font-family:'Noto Serif TC',serif; color:#C9A24B; font-size:16px; margin-bottom:14px;">參訪</div>
+        <a onClick="{{ goAbout }}" style="display:block; color:#E4D3B0; text-decoration:none; cursor:pointer;">關於我們</a>
+        <a onClick="{{ goNews }}" style="display:block; color:#E4D3B0; text-decoration:none; cursor:pointer;">最新公告</a>
+        <a onClick="{{ goPrimer }}" style="display:block; color:#E4D3B0; text-decoration:none; cursor:pointer;">入門佛法</a>
+        <a onClick="{{ goVideo }}" style="display:block; color:#E4D3B0; text-decoration:none; cursor:pointer;">弘法影音</a>
+      </div>
+      <div style="font-size:14px; line-height:2.2;">
+        <div style="font-family:'Noto Serif TC',serif; color:#C9A24B; font-size:16px; margin-bottom:14px;">聯絡與交通</div>
+        台北市文山區木柵路一段 88 號<br>電話 (02) 2888-0000<br>捷運文湖線 · 木柵站步行 8 分鐘
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(201,162,75,.25); padding:20px 56px; font-size:12px; color:#9c7d52; letter-spacing:.06em;">© 2026 華圓覺苑 HUA YUAN MONASTERY · 版權所有</div>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const VIEWS = { home:1, about:1, news:1, primer:1, video:1, course:1, contact:1, sutra:1 };
+
+class Component extends DCLogic {
+  state = { view: this.initialView(), cat: '全部' };
+
+  initialView() {
+    const h = (location.hash || '').replace('#', '');
+    return VIEWS[h] ? h : 'home';
+  }
+
+  nav(view) {
+    this.setState({ view });
+    if (location.hash !== '#' + view) location.hash = view;
+    window.scrollTo(0, 0);
+  }
+
+  componentDidMount() {
+    this._onHash = () => {
+      const v = (location.hash || '').replace('#', '') || 'home';
+      if (!VIEWS[v]) return; // 忽略非視圖的錨點（例如 #form 頁內捲動）
+      if (v !== this.state.view) { this.setState({ view: v }); window.scrollTo(0, 0); }
+    };
+    window.addEventListener('hashchange', this._onHash);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('hashchange', this._onHash);
+  }
+
+  renderVals() {
+    const v = this.state.view;
+    const nav = (view) => () => this.nav(view);
+
+    const navItems = [
+      { key: 'about',   label: '關於我們' },
+      { key: 'news',    label: '最新公告' },
+      { key: 'primer',  label: '入門佛法' },
+      { key: 'video',   label: '弘法影音' },
+      { key: 'course',  label: '課程報名' },
+      { key: 'contact', label: '聯絡我們' },
+    ].map(it => ({
+      ...it,
+      color:  v === it.key ? '#C9A24B' : '#E4D3B0',
+      border: v === it.key ? '1px solid #C9A24B' : '1px solid transparent',
+      onClick: nav(it.key),
+    }));
+
+    // 最新公告：分類篩選
+    const allPosts = [
+      { day: '10', ym: '2026.05', tag: '法會', title: '浴佛節法會圓滿，感恩大眾護持成就', desc: '本年度浴佛節法會於大殿圓滿舉行，與會大眾沐佛淨心、廣植福田，感恩諸位護持。' },
+      { day: '20', ym: '2026.04', tag: '課程', title: '春季《地藏經》研讀班加開週四晚間班', desc: '應大眾需求，《地藏菩薩本願經》研讀班加開週四 19:30 晚間班，歡迎上班族踴躍報名。' },
+      { day: '02', ym: '2026.03', tag: '課程', title: '2026 春季《般若波羅蜜多心經》研讀班開始報名', desc: '由常住法師親自帶領，逐句研讀心經要義，共八堂課。名額有限，額滿為止。' },
+      { day: '18', ym: '2026.02', tag: '公告', title: '「初心學佛」線上佛法課程正式上線', desc: '為方便無法到場的學員，道場推出線上佛法入門課程，可於官網影音專區隨時觀看。' },
+      { day: '01', ym: '2026.02', tag: '法會', title: '新春祈福法會暨點燈　正月初一至初三', desc: '農曆春節期間舉辦新春祈福法會，恭誦《藥師經》，並開放光明燈、太歲燈登記。' },
+      { day: '20', ym: '2025.12', tag: '公告', title: '歲末感恩 · 冬季救濟物資募集', desc: '道場發起冬季救濟，募集白米、毛毯與民生物資，將轉贈在地弱勢家庭，邀您共襄善舉。' },
+      { day: '08', ym: '2025.12', tag: '課程', title: '兒童讀經班寒假梯次開放報名', desc: '寒假兒童讀經班招生，透過經典朗讀涵養品格，適合 6–12 歲學童，名額有限。' },
+    ];
+    const cat = this.state.cat || '全部';
+    const filters = ['全部', '課程', '法會', '公告'].map((label) => ({
+      label,
+      onClick: () => this.setState({ cat: label }),
+      bg: label === cat ? '#3A211C' : '#FFFDF8',
+      color: label === cat ? '#C9A24B' : '#8a6f55',
+      border: label === cat ? '1px solid #3A211C' : '1px solid rgba(201,162,75,.4)',
+    }));
+    const posts = cat === '全部' ? allPosts : allPosts.filter((p) => p.tag === cat);
+
+    // 弘法影音
+    const videos = [
+      { title: '《心經》的智慧 · 第二講', series: '經典講座系列', dur: '38:24' },
+      { title: '生活中的禪 · 安住當下', series: '生活佛法系列', dur: '21:10' },
+      { title: '如何開始每日定課', series: '初心學佛系列', dur: '15:46' },
+      { title: '念佛法門淺說', series: '法門開示', dur: '42:08' },
+      { title: '認識因果與業力', series: '初心學佛系列', dur: '27:33' },
+      { title: '浴佛節法會紀實', series: '道場紀實', dur: '08:52' },
+    ];
+
+    // 課程報名
+    const courses = [
+      { name: '《般若波羅蜜多心經》研讀班', level: '初階', meta: '週二 19:30–21:00 ｜ 共 8 堂 ｜ 常住法師主講 ｜ 開課 2026.03.10', action: '我要報名' },
+      { name: '《地藏菩薩本願經》研讀班', level: '進階', meta: '週四 19:30–21:00 ｜ 大殿 ｜ 加開晚間班', action: '我要報名' },
+      { name: '兒童讀經班（寒假梯次）', level: '6–12 歲', meta: '寒假期間每週六上午 ｜ 名額有限，額滿為止', action: '我要報名' },
+    ];
+
+    return {
+      navItems,
+      isHome:    v === 'home',
+      isAbout:   v === 'about',
+      isNews:    v === 'news',
+      isPrimer:  v === 'primer',
+      isVideo:   v === 'video',
+      isCourse:  v === 'course',
+      isContact: v === 'contact',
+      isSutra:   v === 'sutra',
+      goHome:    nav('home'),
+      goAbout:   nav('about'),
+      goNews:    nav('news'),
+      goPrimer:  nav('primer'),
+      goVideo:   nav('video'),
+      goCourse:  nav('course'),
+      goContact: nav('contact'),
+      goSutra:   nav('sutra'),
+      filters, posts, empty: posts.length === 0,
+      videos, courses,
+    };
+  }
+}
+</script>
+</body>
+</html>

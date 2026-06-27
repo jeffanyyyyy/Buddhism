@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  body { margin:0; }
+  input, textarea, select { outline:none; }
+  input:focus, textarea:focus, select:focus { border-color:#C9A24B !important; }
+  .scrollarea::-webkit-scrollbar { width:8px; }
+  .scrollarea::-webkit-scrollbar-thumb { background:rgba(0,0,0,.15); border-radius:4px; }
+</style>
+</helmet>
+
+<div style="display:flex; min-height:100vh; min-width:1180px; font-family:'Noto Sans TC',sans-serif; background:#F2EFEA; color:#2A2622;">
+
+  <!-- ================= 側邊欄 ================= -->
+  <div style="width:250px; flex-shrink:0; background:#2A1714; color:#E8DFD0; display:flex; flex-direction:column; position:sticky; top:0; height:100vh;">
+    <div style="padding:24px 22px 22px; border-bottom:1px solid rgba(201,162,75,.18); display:flex; align-items:center; gap:12px;">
+      <div style="width:40px; height:40px; border:1.5px solid #C9A24B; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Noto Serif TC',serif; font-size:19px; color:#C9A24B;">覺</div>
+      <div>
+        <div style="font-family:'Noto Serif TC',serif; font-size:18px; letter-spacing:.14em; color:#F2E4C8;">華圓覺苑</div>
+        <div style="font-size:11px; letter-spacing:.22em; color:#9c7d52;">管理後台</div>
+      </div>
+    </div>
+
+    <div style="padding:14px 0; flex:1; overflow-y:auto;" class="scrollarea">
+      <div style="padding:8px 22px 6px; font-size:11px; letter-spacing:.2em; color:#7d6552;">內容管理</div>
+      <sc-for list="{{ navItems }}" as="it" hint-placeholder-count="8">
+        <div onClick="{{ it.onClick }}" style="display:flex; align-items:center; gap:13px; padding:11px 19px; cursor:pointer; color:{{ it.color }}; background:{{ it.bg }}; border-left:3px solid {{ it.bar }};">
+          <span style="width:20px; text-align:center; font-size:14px;">{{ it.icon }}</span>
+          <span style="font-size:14.5px; letter-spacing:.03em;">{{ it.label }}</span>
+        </div>
+      </sc-for>
+    </div>
+
+    <div style="padding:16px 20px; border-top:1px solid rgba(201,162,75,.18); display:flex; align-items:center; gap:11px;">
+      <div style="width:34px; height:34px; border-radius:50%; background:#4A2A22; display:flex; align-items:center; justify-content:center; color:#C9A24B; font-size:14px;">師</div>
+      <div style="flex:1; min-width:0;">
+        <div style="font-size:13px; color:#E8DFD0;">道場管理員</div>
+        <div style="font-size:11px; color:#8d7359;">admin@huayuan</div>
+      </div>
+      <span style="font-size:12px; color:#9c7d52; cursor:pointer;">登出</span>
+    </div>
+  </div>
+
+  <!-- ================= 主內容 ================= -->
+  <div style="flex:1; min-width:0; display:flex; flex-direction:column;">
+
+    <!-- 頂列 -->
+    <div style="height:66px; background:#fff; border-bottom:1px solid #E6E1D8; display:flex; align-items:center; justify-content:space-between; padding:0 36px; position:sticky; top:0; z-index:40;">
+      <div style="font-family:'Noto Serif TC',serif; font-size:21px; color:#2A1714; letter-spacing:.06em;">{{ pageTitle }}</div>
+      <div style="display:flex; align-items:center; gap:18px;">
+        <a href="index.html" target="_blank" style="font-size:13px; color:#8a6f55; text-decoration:none; border:1px solid #DAD3C8; padding:8px 16px; border-radius:6px;">↗ 預覽前台</a>
+        <div style="font-size:13px; color:#8a6f55;">2026.06.27 週六</div>
+      </div>
+    </div>
+
+    <div style="padding:30px 36px 60px;">
+
+      <!-- ===== 總覽 ===== -->
+      <sc-if value="{{ isDashboard }}" hint-placeholder-val="{{ true }}">
+        <div>
+          <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:18px; margin-bottom:26px;">
+            <sc-for list="{{ stats }}" as="s" hint-placeholder-count="4">
+              <div style="background:#fff; border:1px solid #E6E1D8; border-radius:12px; padding:22px 24px;">
+                <div style="font-size:13px; color:#8a7d68; letter-spacing:.05em;">{{ s.label }}</div>
+                <div style="display:flex; align-items:baseline; gap:6px; margin-top:10px;">
+                  <span style="font-family:'Noto Serif TC',serif; font-size:36px; color:#3A211C;">{{ s.value }}</span>
+                  <span style="font-size:13px; color:#a89b86;">{{ s.sub }}</span>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+
+          <div style="display:grid; grid-template-columns:1.6fr 1fr; gap:18px;">
+            <div style="background:#fff; border:1px solid #E6E1D8; border-radius:12px; padding:24px 26px;">
+              <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:18px;">
+                <div style="font-family:'Noto Serif TC',serif; font-size:18px; color:#3A211C;">最近公告</div>
+                <span onClick="{{ goNews }}" style="font-size:13px; color:#B8893A; cursor:pointer;">管理全部 →</span>
+              </div>
+              <sc-for list="{{ news }}" as="n" hint-placeholder-count="5">
+                <div style="display:flex; align-items:center; gap:16px; padding:12px 0; border-bottom:1px solid #F0ECE3;">
+                  <span style="font-size:13px; color:#a89b86; width:80px; flex-shrink:0;">{{ n.date }}</span>
+                  <span style="font-size:11px; padding:2px 10px; background:#F0ECE3; color:#8a6f55; border-radius:4px; flex-shrink:0;">{{ n.tag }}</span>
+                  <span style="font-size:14px; flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{{ n.title }}</span>
+                  <span style="font-size:11px; padding:2px 10px; border-radius:4px; flex-shrink:0; color:{{ n.statusColor }}; background:{{ n.statusBg }};">{{ n.status }}</span>
+                </div>
+              </sc-for>
+            </div>
+
+            <div style="background:#fff; border:1px solid #E6E1D8; border-radius:12px; padding:24px 26px;">
+              <div style="font-family:'Noto Serif TC',serif; font-size:18px; color:#3A211C; margin-bottom:18px;">快速操作</div>
+              <div style="display:flex; flex-direction:column; gap:11px;">
+                <sc-for list="{{ quickActions }}" as="q" hint-placeholder-count="4">
+                  <div onClick="{{ q.onClick }}" style="display:flex; align-items:center; gap:13px; padding:14px 16px; border:1px solid #E6E1D8; border-radius:9px; cursor:pointer; background:#FBFAF7;">
+                    <span style="width:30px; height:30px; border-radius:7px; background:#F2E4C8; color:#B8893A; display:flex; align-items:center; justify-content:center; font-size:14px;">{{ q.icon }}</span>
+                    <span style="font-size:14.5px; color:#3A211C;">{{ q.label }}</span>
+                    <span style="margin-left:auto; color:#c9bca8;">›</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ===== 公告管理 ===== -->
+      <sc-if value="{{ isNews }}" hint-placeholder-val="{{ false }}">
+        <div>
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:20px;">
+            <div style="display:flex; gap:10px; align-items:center;">
+              <input placeholder="搜尋公告標題…" style="width:280px; padding:9px 14px; border:1px solid #DAD3C8; border-radius:7px; font-size:14px; font-family:inherit; background:#fff;">
+              <span style="padding:9px 16px; background:#fff; border:1px solid #DAD3C8; border-radius:7px; font-size:13px; color:#6b5a48; cursor:pointer;">全部分類 ▾</span>
+            </div>
+            <button onClick="{{ openNew }}" style="padding:10px 22px; background:#3A211C; color:#E4C679; border:none; border-radius:7px; font-size:14px; cursor:pointer; letter-spacing:.05em;">＋ 新增公告</button>
+          </div>
+
+          <div style="background:#fff; border:1px solid #E6E1D8; border-radius:12px; overflow:hidden;">
+            <div style="display:grid; grid-template-columns:120px 90px 1fr 100px 130px; gap:16px; padding:14px 24px; background:#FBF8F2; border-bottom:1px solid #ECE6DC; font-size:12.5px; color:#8a7d68; letter-spacing:.06em;">
+              <span>發佈日期</span><span>分類</span><span>標題</span><span>狀態</span><span style="text-align:right;">操作</span>
+            </div>
+            <sc-for list="{{ news }}" as="n" hint-placeholder-count="6">
+              <div style="display:grid; grid-template-columns:120px 90px 1fr 100px 130px; gap:16px; padding:16px 24px; border-bottom:1px solid #F2EEE5; align-items:center;">
+                <span style="font-size:13.5px; color:#6b5a48;">{{ n.date }}</span>
+                <span><span style="font-size:11px; padding:3px 11px; background:#F0ECE3; color:#8a6f55; border-radius:4px;">{{ n.tag }}</span></span>
+                <span style="font-size:14.5px; color:#2A2622;">{{ n.title }}</span>
+                <span><span style="font-size:11px; padding:3px 11px; border-radius:4px; color:{{ n.statusColor }}; background:{{ n.statusBg }};">{{ n.status }}</span></span>
+                <span style="display:flex; gap:8px; justify-content:flex-end;">
+                  <span onClick="{{ n.onEdit }}" style="font-size:13px; color:#B8893A; cursor:pointer;">編輯</span>
+                  <span style="color:#ddd;">|</span>
+                  <span onClick="{{ n.onDelete }}" style="font-size:13px; color:#b85a4a; cursor:pointer;">刪除</span>
+                </span>
+              </div>
+            </sc-for>
+          </div>
+          <div style="margin-top:14px; font-size:13px; color:#a89b86;">共 {{ newsCount }} 則公告</div>
+        </div>
+      </sc-if>
+
+      <!-- ===== 入門佛法文檔 ===== -->
+      <sc-if value="{{ isDocs }}" hint-placeholder-val="{{ false }}">
+        <div>
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:20px;">
+            <div style="font-size:14px; color:#8a7d68;">管理可供信眾線上閱讀／下載的經文電子檔</div>
+            <button style="padding:10px 22px; background:#3A211C; color:#E4C679; border:none; border-radius:7px; font-size:14px; cursor:pointer;">＋ 上傳文檔</button>
+          </div>
+
+          <div style="border:2px dashed #D7CDBC; border-radius:12px; padding:34px; text-align:center; background:#FBF8F2; margin-bottom:22px;">
+            <div style="font-size:30px; color:#C9A24B; margin-bottom:8px;">⬆</div>
+            <div style="font-size:15px; color:#6b5a48; margin-bottom:4px;">將 PDF / Word 經文檔拖曳至此，或點擊上傳</div>
+            <div style="font-size:12.5px; color:#a89b86;">支援 PDF、DOCX，單檔上限 20 MB</div>
+          </div>
+
+          <div style="background:#fff; border:1px solid #E6E1D8; border-radius:12px; overflow:hidden;">
+            <div style="display:grid; grid-template-columns:1fr 160px 100px 120px 120px; gap:16px; padding:14px 24px; background:#FBF8F2; border-bottom:1px solid #ECE6DC; font-size:12.5px; color:#8a7d68; letter-spacing:.06em;">
+              <span>文件名稱</span><span>格式</span><span>狀態</span><span>最後更新</span><span style="text-align:right;">操作</span>
+            </div>
+            <sc-for list="{{ docs }}" as="d" hint-placeholder-count="3">
+              <div style="display:grid; grid-template-columns:1fr 160px 100px 120px 120px; gap:16px; padding:16px 24px; border-bottom:1px solid #F2EEE5; align-items:center;">
+                <span style="display:flex; align-items:center; gap:12px;"><span style="width:30px; height:30px; border-radius:7px; background:#F2E4C8; color:#B8893A; display:flex; align-items:center; justify-content:center; font-size:13px;">▤</span><span style="font-size:14.5px;">{{ d.name }}</span></span>
+                <span style="font-size:13px; color:#8a7d68;">{{ d.fmt }}</span>
+                <span><span style="font-size:11px; padding:3px 11px; border-radius:4px; color:{{ d.statusColor }}; background:{{ d.statusBg }};">{{ d.status }}</span></span>
+                <span style="font-size:13px; color:#8a7d68;">{{ d.updated }}</span>
+                <span style="display:flex; gap:8px; justify-content:flex-end;">
+                  <span style="font-size:13px; color:#B8893A; cursor:pointer;">編輯</span>
+                  <span style="color:#ddd;">|</span>
+                  <span style="font-size:13px; color:#b85a4a; cursor:pointer;">刪除</span>
+                </span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ===== 弘法影音 ===== -->
+      <sc-if value="{{ isVideo }}" hint-placeholder-val="{{ false }}">
+        <div>
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:20px;">
+            <div style="font-size:14px; color:#8a7d68;">貼上 YouTube 連結即可在前台影音專區播放</div>
+            <button style="padding:10px 22px; background:#3A211C; color:#E4C679; border:none; border-radius:7px; font-size:14px; cursor:pointer;">＋ 新增影片</button>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:14px;">
+            <sc-for list="{{ videos }}" as="v" hint-placeholder-count="3">
+              <div style="background:#fff; border:1px solid #E6E1D8; border-radius:12px; padding:18px 20px; display:flex; align-items:center; gap:20px;">
+                <div style="width:130px; height:74px; flex-shrink:0; border-radius:8px; background:linear-gradient(135deg,#4A2A22,#241310); display:flex; align-items:center; justify-content:center; color:#C9A24B; font-size:18px;">▷</div>
+                <div style="flex:1; min-width:0;">
+                  <div style="font-size:12px; color:#8a7d68; margin-bottom:5px;">影片標題</div>
+                  <input value="{{ v.title }}" style="width:100%; padding:8px 12px; border:1px solid #DAD3C8; border-radius:6px; font-size:14px; font-family:inherit; margin-bottom:9px; background:#fff;">
+                  <div style="font-size:12px; color:#8a7d68; margin-bottom:5px;">YouTube 連結</div>
+                  <input value="{{ v.url }}" placeholder="https://youtu.be/..." style="width:100%; padding:8px 12px; border:1px solid #DAD3C8; border-radius:6px; font-size:13px; font-family:inherit; color:#6b5a48; background:#fff;">
+                </div>
+                <div style="display:flex; flex-direction:column; align-items:flex-end; gap:12px; flex-shrink:0;">
+                  <span style="font-size:11px; padding:3px 11px; border-radius:4px; color:{{ v.statusColor }}; background:{{ v.statusBg }};">{{ v.status }}</span>
+                  <span style="font-size:13px; color:#b85a4a; cursor:pointer;">刪除</span>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ===== 課程管理 ===== -->
+      <sc-if value="{{ isCourse }}" hint-placeholder-val="{{ false }}">
+        <div>
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:20px;">
+            <div style="font-size:14px; color:#8a7d68;">管理顯示於前台與報名頁的課程</div>
+            <button style="padding:10px 22px; background:#3A211C; color:#E4C679; border:none; border-radius:7px; font-size:14px; cursor:pointer;">＋ 新增課程</button>
+          </div>
+          <div style="background:#fff; border:1px solid #E6E1D8; border-radius:12px; overflow:hidden;">
+            <div style="display:grid; grid-template-columns:1fr 150px 110px 100px 120px; gap:16px; padding:14px 24px; background:#FBF8F2; border-bottom:1px solid #ECE6DC; font-size:12.5px; color:#8a7d68; letter-spacing:.06em;">
+              <span>課程名稱</span><span>時間</span><span>程度</span><span>狀態</span><span style="text-align:right;">操作</span>
+            </div>
+            <sc-for list="{{ courses }}" as="c" hint-placeholder-count="3">
+              <div style="display:grid; grid-template-columns:1fr 150px 110px 100px 120px; gap:16px; padding:16px 24px; border-bottom:1px solid #F2EEE5; align-items:center;">
+                <span style="font-size:14.5px;">{{ c.name }}</span>
+                <span style="font-size:13px; color:#8a7d68;">{{ c.time }}</span>
+                <span style="font-size:13px; color:#8a7d68;">{{ c.level }}</span>
+                <span><span style="font-size:11px; padding:3px 11px; border-radius:4px; color:{{ c.statusColor }}; background:{{ c.statusBg }};">{{ c.status }}</span></span>
+                <span style="display:flex; gap:8px; justify-content:flex-end;">
+                  <span style="font-size:13px; color:#B8893A; cursor:pointer;">編輯</span>
+                  <span style="color:#ddd;">|</span>
+                  <span style="font-size:13px; color:#b85a4a; cursor:pointer;">刪除</span>
+                </span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ===== 報名設定 ===== -->
+      <sc-if value="{{ isSignup }}" hint-placeholder-val="{{ false }}">
+        <div style="max-width:680px;">
+          <div style="background:#fff; border:1px solid #E6E1D8; border-radius:12px; padding:30px 32px;">
+            <div style="font-family:'Noto Serif TC',serif; font-size:19px; color:#3A211C; margin-bottom:6px;">Google 報名表單</div>
+            <p style="font-size:13.5px; color:#8a7d68; line-height:1.8; margin:0 0 24px;">設定報名按鈕連到的 Google 表單，或改用嵌入方式直接顯示於報名頁。</p>
+
+            <div style="margin-bottom:20px;">
+              <div style="font-size:13px; color:#6b5a48; margin-bottom:7px;">表單分享連結</div>
+              <input value="https://forms.gle/xxxxxxxx" style="width:100%; padding:11px 14px; border:1px solid #DAD3C8; border-radius:7px; font-size:14px; font-family:inherit; background:#fff;">
+            </div>
+            <div style="margin-bottom:20px;">
+              <div style="font-size:13px; color:#6b5a48; margin-bottom:7px;">顯示方式</div>
+              <div style="display:flex; gap:10px;">
+                <span style="padding:9px 18px; background:#3A211C; color:#E4C679; border-radius:7px; font-size:13.5px; cursor:pointer;">按鈕導向</span>
+                <span style="padding:9px 18px; background:#fff; border:1px solid #DAD3C8; color:#6b5a48; border-radius:7px; font-size:13.5px; cursor:pointer;">頁面內嵌</span>
+              </div>
+            </div>
+            <div style="margin-bottom:26px;">
+              <div style="font-size:13px; color:#6b5a48; margin-bottom:7px;">報名通知信箱</div>
+              <input value="signup@huayuan.org.tw" style="width:100%; padding:11px 14px; border:1px solid #DAD3C8; border-radius:7px; font-size:14px; font-family:inherit; background:#fff;">
+            </div>
+            <button style="padding:11px 28px; background:#C9A24B; color:#3A211C; border:none; border-radius:7px; font-size:14px; cursor:pointer; font-weight:500;">儲存設定</button>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ===== 關於我們 ===== -->
+      <sc-if value="{{ isAbout }}" hint-placeholder-val="{{ false }}">
+        <div style="max-width:780px;">
+          <div style="background:#fff; border:1px solid #E6E1D8; border-radius:12px; padding:30px 32px; margin-bottom:18px;">
+            <div style="font-family:'Noto Serif TC',serif; font-size:19px; color:#3A211C; margin-bottom:20px;">道場簡介</div>
+            <div style="margin-bottom:18px;">
+              <div style="font-size:13px; color:#6b5a48; margin-bottom:7px;">主標題</div>
+              <input value="一方清淨地　安頓現代人的心" style="width:100%; padding:11px 14px; border:1px solid #DAD3C8; border-radius:7px; font-size:14px; font-family:inherit; background:#fff;">
+            </div>
+            <div>
+              <div style="font-size:13px; color:#6b5a48; margin-bottom:7px;">緣起內文</div>
+              <textarea rows="4" style="width:100%; padding:11px 14px; border:1px solid #DAD3C8; border-radius:7px; font-size:14px; font-family:inherit; line-height:1.8; resize:vertical; background:#fff;">華圓覺苑創立於繁華都會之中，以「弘揚正信佛法、利益一切眾生」為宗旨。我們相信，修行不必遠離紅塵，而在於每一個當下的覺照。</textarea>
+            </div>
+          </div>
+
+          <div style="background:#fff; border:1px solid #E6E1D8; border-radius:12px; padding:30px 32px; margin-bottom:18px;">
+            <div style="font-family:'Noto Serif TC',serif; font-size:19px; color:#3A211C; margin-bottom:20px;">理念三項</div>
+            <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:14px;">
+              <div><div style="font-size:13px; color:#6b5a48; margin-bottom:7px;">慈</div><input value="慈悲利他" style="width:100%; padding:10px 12px; border:1px solid #DAD3C8; border-radius:7px; font-size:14px; font-family:inherit; background:#fff;"></div>
+              <div><div style="font-size:13px; color:#6b5a48; margin-bottom:7px;">智</div><input value="智慧明燈" style="width:100%; padding:10px 12px; border:1px solid #DAD3C8; border-radius:7px; font-size:14px; font-family:inherit; background:#fff;"></div>
+              <div><div style="font-size:13px; color:#6b5a48; margin-bottom:7px;">淨</div><input value="清淨自在" style="width:100%; padding:10px 12px; border:1px solid #DAD3C8; border-radius:7px; font-size:14px; font-family:inherit; background:#fff;"></div>
+            </div>
+          </div>
+          <button style="padding:11px 28px; background:#C9A24B; color:#3A211C; border:none; border-radius:7px; font-size:14px; cursor:pointer; font-weight:500;">儲存變更</button>
+        </div>
+      </sc-if>
+
+      <!-- ===== 聯絡與交通 ===== -->
+      <sc-if value="{{ isContact }}" hint-placeholder-val="{{ false }}">
+        <div style="max-width:780px;">
+          <div style="background:#fff; border:1px solid #E6E1D8; border-radius:12px; padding:30px 32px; margin-bottom:18px;">
+            <div style="font-family:'Noto Serif TC',serif; font-size:19px; color:#3A211C; margin-bottom:20px;">聯絡資訊</div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;">
+              <div><div style="font-size:13px; color:#6b5a48; margin-bottom:7px;">道場地址</div><input value="116 台北市文山區木柵路一段 88 號" style="width:100%; padding:11px 14px; border:1px solid #DAD3C8; border-radius:7px; font-size:14px; font-family:inherit; background:#fff;"></div>
+              <div><div style="font-size:13px; color:#6b5a48; margin-bottom:7px;">聯絡電話</div><input value="(02) 2888-0000" style="width:100%; padding:11px 14px; border:1px solid #DAD3C8; border-radius:7px; font-size:14px; font-family:inherit; background:#fff;"></div>
+              <div><div style="font-size:13px; color:#6b5a48; margin-bottom:7px;">電子信箱</div><input value="info@huayuan.org.tw" style="width:100%; padding:11px 14px; border:1px solid #DAD3C8; border-radius:7px; font-size:14px; font-family:inherit; background:#fff;"></div>
+              <div><div style="font-size:13px; color:#6b5a48; margin-bottom:7px;">服務時間</div><input value="09:00 – 17:00（週一公休）" style="width:100%; padding:11px 14px; border:1px solid #DAD3C8; border-radius:7px; font-size:14px; font-family:inherit; background:#fff;"></div>
+            </div>
+            <div>
+              <div style="font-size:13px; color:#6b5a48; margin-bottom:7px;">交通方式</div>
+              <textarea rows="3" style="width:100%; padding:11px 14px; border:1px solid #DAD3C8; border-radius:7px; font-size:14px; font-family:inherit; line-height:1.8; resize:vertical; background:#fff;">捷運：文湖線「木柵站」2 號出口，步行約 8 分鐘。
+公車：251、253、660 至「木柵路口」站，步行約 3 分鐘。</textarea>
+            </div>
+          </div>
+
+          <div style="background:#fff; border:1px solid #E6E1D8; border-radius:12px; padding:30px 32px; margin-bottom:18px;">
+            <div style="font-family:'Noto Serif TC',serif; font-size:19px; color:#3A211C; margin-bottom:8px;">Google 地圖</div>
+            <p style="font-size:13px; color:#8a7d68; margin:0 0 14px;">貼上 Google 地圖的嵌入碼（iframe）。</p>
+            <textarea rows="3" placeholder="&lt;iframe src=&quot;https://www.google.com/maps/embed?...&quot;&gt;&lt;/iframe&gt;" style="width:100%; padding:11px 14px; border:1px solid #DAD3C8; border-radius:7px; font-size:13px; font-family:monospace; line-height:1.7; resize:vertical; background:#fff; color:#6b5a48;"></textarea>
+          </div>
+          <button style="padding:11px 28px; background:#C9A24B; color:#3A211C; border:none; border-radius:7px; font-size:14px; cursor:pointer; font-weight:500;">儲存變更</button>
+        </div>
+      </sc-if>
+
+    </div>
+  </div>
+
+  <!-- ================= 公告編輯 Drawer ================= -->
+  <sc-if value="{{ drawerOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeDrawer }}" style="position:fixed; inset:0; background:rgba(20,12,10,.42); z-index:80;"></div>
+    <div style="position:fixed; top:0; right:0; width:480px; height:100vh; background:#fff; z-index:90; box-shadow:-10px 0 40px rgba(0,0,0,.18); display:flex; flex-direction:column;">
+      <div style="padding:22px 28px; border-bottom:1px solid #ECE6DC; display:flex; align-items:center; justify-content:space-between;">
+        <div style="font-family:'Noto Serif TC',serif; font-size:20px; color:#3A211C;">{{ drawerTitle }}</div>
+        <span onClick="{{ closeDrawer }}" style="font-size:22px; color:#a89b86; cursor:pointer; line-height:1;">×</span>
+      </div>
+      <div style="flex:1; overflow-y:auto; padding:26px 28px;" class="scrollarea">
+        <div style="margin-bottom:20px;">
+          <div style="font-size:13px; color:#6b5a48; margin-bottom:8px;">公告標題</div>
+          <input value="{{ form.title }}" onChange="{{ onTitle }}" placeholder="請輸入標題…" style="width:100%; padding:11px 14px; border:1px solid #DAD3C8; border-radius:7px; font-size:14px; font-family:inherit; background:#fff;">
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:20px;">
+          <div>
+            <div style="font-size:13px; color:#6b5a48; margin-bottom:8px;">分類</div>
+            <select value="{{ form.tag }}" onChange="{{ onTag }}" style="width:100%; padding:11px 12px; border:1px solid #DAD3C8; border-radius:7px; font-size:14px; font-family:inherit; background:#fff;">
+              <option>課程</option><option>法會</option><option>公告</option>
+            </select>
+          </div>
+          <div>
+            <div style="font-size:13px; color:#6b5a48; margin-bottom:8px;">發佈日期</div>
+            <input value="{{ form.date }}" onChange="{{ onDate }}" placeholder="2026.03.02" style="width:100%; padding:11px 14px; border:1px solid #DAD3C8; border-radius:7px; font-size:14px; font-family:inherit; background:#fff;">
+          </div>
+        </div>
+        <div style="margin-bottom:20px;">
+          <div style="font-size:13px; color:#6b5a48; margin-bottom:8px;">公告內文</div>
+          <textarea value="{{ form.body }}" onChange="{{ onBody }}" rows="7" placeholder="輸入公告詳細內容…" style="width:100%; padding:11px 14px; border:1px solid #DAD3C8; border-radius:7px; font-size:14px; font-family:inherit; line-height:1.8; resize:vertical; background:#fff;"></textarea>
+        </div>
+        <div>
+          <div style="font-size:13px; color:#6b5a48; margin-bottom:8px;">發佈狀態</div>
+          <select value="{{ form.status }}" onChange="{{ onStatus }}" style="width:100%; padding:11px 12px; border:1px solid #DAD3C8; border-radius:7px; font-size:14px; font-family:inherit; background:#fff;">
+            <option>已發布</option><option>草稿</option><option>隱藏</option>
+          </select>
+        </div>
+      </div>
+      <div style="padding:18px 28px; border-top:1px solid #ECE6DC; display:flex; gap:12px; justify-content:flex-end;">
+        <button onClick="{{ closeDrawer }}" style="padding:10px 22px; background:#fff; color:#6b5a48; border:1px solid #DAD3C8; border-radius:7px; font-size:14px; cursor:pointer;">取消</button>
+        <button onClick="{{ save }}" style="padding:10px 26px; background:#C9A24B; color:#3A211C; border:none; border-radius:7px; font-size:14px; cursor:pointer; font-weight:500;">儲存公告</button>
+      </div>
+    </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = {
+    view: 'dashboard',
+    drawerOpen: false,
+    drawerMode: 'new',
+    form: { id: null, title: '', tag: '課程', date: '', body: '', status: '已發布' },
+    news: [
+      { id: 1, date: '2026.05.10', tag: '法會', title: '浴佛節法會圓滿，感恩大眾護持成就', status: '已發布' },
+      { id: 2, date: '2026.04.20', tag: '課程', title: '春季《地藏經》研讀班加開週四晚間班', status: '已發布' },
+      { id: 3, date: '2026.03.02', tag: '課程', title: '2026 春季《心經》研讀班開始報名', status: '已發布' },
+      { id: 4, date: '2026.02.18', tag: '公告', title: '「初心學佛」線上佛法課程正式上線', status: '已發布' },
+      { id: 5, date: '2026.02.01', tag: '法會', title: '新春祈福法會暨點燈　正月初一至初三', status: '草稿' },
+      { id: 6, date: '2025.12.20', tag: '公告', title: '歲末感恩 · 冬季救濟物資募集', status: '隱藏' },
+    ],
+  };
+
+  openNew() {
+    this.setState({ drawerOpen: true, drawerMode: 'new', form: { id: null, title: '', tag: '課程', date: '', body: '', status: '草稿' } });
+  }
+  openEdit(n) {
+    this.setState({ drawerOpen: true, drawerMode: 'edit', form: { id: n.id, title: n.title, tag: n.tag, date: n.date, body: '', status: n.status } });
+  }
+  closeDrawer() { this.setState({ drawerOpen: false }); }
+  field(k) { return (e) => { const val = e.target.value; this.setState(s => ({ form: { ...s.form, [k]: val } })); }; }
+  save() {
+    const f = this.state.form;
+    this.setState(s => {
+      let news = s.news.slice();
+      if (f.id == null) {
+        const id = (news.length ? Math.max.apply(null, news.map(x => x.id)) : 0) + 1;
+        news.unshift({ id, date: f.date || '—', tag: f.tag, title: f.title || '（未命名公告）', status: f.status });
+      } else {
+        news = news.map(x => x.id === f.id ? { ...x, title: f.title || x.title, tag: f.tag, date: f.date || x.date, status: f.status } : x);
+      }
+      return { news, drawerOpen: false };
+    });
+  }
+  del(id) { this.setState(s => ({ news: s.news.filter(x => x.id !== id) })); }
+
+  statusOf(st) {
+    if (st === '已發布' || st === '招生中') return { c: '#2f7d4f', bg: '#e7f3ec' };
+    if (st === '草稿') return { c: '#8a7d68', bg: '#efe9df' };
+    return { c: '#a8742a', bg: '#f6ecd9' };
+  }
+
+  renderVals() {
+    const v = this.state.view;
+    const titles = { dashboard: '總覽', news: '最新公告管理', docs: '入門佛法文檔', video: '弘法影音管理', course: '課程管理', signup: '報名設定', about: '關於我們', contact: '聯絡與交通' };
+    const navItems = [
+      { key: 'dashboard', label: '總覽', icon: '▦' },
+      { key: 'news', label: '最新公告', icon: '✦' },
+      { key: 'docs', label: '入門佛法文檔', icon: '▤' },
+      { key: 'video', label: '弘法影音', icon: '▷' },
+      { key: 'course', label: '課程管理', icon: '✎' },
+      { key: 'signup', label: '報名設定', icon: '✓' },
+      { key: 'about', label: '關於我們', icon: '⌂' },
+      { key: 'contact', label: '聯絡與交通', icon: '⌖' },
+    ].map(it => ({
+      ...it,
+      color: v === it.key ? '#F0DFA8' : '#C7B8A2',
+      bg: v === it.key ? 'rgba(201,162,75,.16)' : 'transparent',
+      bar: v === it.key ? '#C9A24B' : 'transparent',
+      onClick: () => this.setState({ view: it.key }),
+    }));
+
+    const news = this.state.news.map(n => {
+      const s = this.statusOf(n.status);
+      return { ...n, statusColor: s.c, statusBg: s.bg, onEdit: () => this.openEdit(n), onDelete: () => this.del(n.id) };
+    });
+
+    const docs = [
+      { name: '般若波羅蜜多心經', fmt: 'PDF · 42 KB', status: '已發布', updated: '2026.03.01' },
+      { name: '佛門行儀入門', fmt: 'PDF · —', status: '草稿', updated: '2026.02.10' },
+      { name: '三皈五戒淺釋', fmt: 'PDF · —', status: '草稿', updated: '2026.01.22' },
+    ].map(d => { const s = this.statusOf(d.status); return { ...d, statusColor: s.c, statusBg: s.bg }; });
+
+    const videos = [
+      { title: '《心經》的智慧 · 第一講', url: 'https://youtu.be/example1', status: '已發布' },
+      { title: '生活中的禪 · 安住當下', url: 'https://youtu.be/example2', status: '已發布' },
+      { title: '如何開始每日定課', url: '', status: '草稿' },
+    ].map(x => { const s = this.statusOf(x.status); return { ...x, statusColor: s.c, statusBg: s.bg }; });
+
+    const courses = [
+      { name: '《般若波羅蜜多心經》研讀班', time: '週二 19:30', level: '初階', status: '招生中' },
+      { name: '《地藏菩薩本願經》研讀班', time: '週四 19:30', level: '進階', status: '招生中' },
+      { name: '兒童讀經班（寒假梯次）', time: '週六 上午', level: '6–12歲', status: '額滿' },
+    ].map(c => { const s = this.statusOf(c.status); return { ...c, statusColor: s.c, statusBg: s.bg }; });
+
+    const stats = [
+      { label: '公告', value: this.state.news.length, sub: '則' },
+      { label: '佛法文檔', value: 3, sub: '份' },
+      { label: '影音', value: 7, sub: '部' },
+      { label: '本月報名', value: 24, sub: '人' },
+    ];
+
+    const quickActions = [
+      { label: '新增公告', icon: '✦', onClick: () => { this.setState({ view: 'news' }); this.openNew(); } },
+      { label: '上傳佛法文檔', icon: '▤', onClick: () => this.setState({ view: 'docs' }) },
+      { label: '新增影片', icon: '▷', onClick: () => this.setState({ view: 'video' }) },
+      { label: '編輯關於頁', icon: '⌂', onClick: () => this.setState({ view: 'about' }) },
+    ];
+
+    return {
+      isDashboard: v === 'dashboard', isNews: v === 'news', isDocs: v === 'docs', isVideo: v === 'video',
+      isCourse: v === 'course', isSignup: v === 'signup', isAbout: v === 'about', isContact: v === 'contact',
+      navItems, pageTitle: titles[v], news, docs, videos, courses, stats, quickActions,
+      newsCount: this.state.news.length,
+      goNews: () => this.setState({ view: 'news' }),
+      openNew: () => this.openNew(),
+      closeDrawer: () => this.closeDrawer(),
+      save: () => this.save(),
+      drawerOpen: this.state.drawerOpen,
+      drawerTitle: this.state.drawerMode === 'new' ? '新增公告' : '編輯公告',
+      form: this.state.form,
+      onTitle: this.field('title'), onTag: this.field('tag'), onDate: this.field('date'),
+      onBody: this.field('body'), onStatus: this.field('status'),
+    };
+  }
+}
+</script>
+</body>
+</html>
