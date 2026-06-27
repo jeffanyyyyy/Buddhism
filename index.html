@@ -102,19 +102,23 @@ body { margin:0; }
         var open = document.getElementById('navOpen');
         var close = document.getElementById('navClose');
         var menu = document.getElementById('mobileMenu');
-        if (!open || !menu) return;
+        if (!open || !menu || open._menuBound) return;
+        open._menuBound = true;
         open.addEventListener('click', function() { menu.classList.add('open'); });
-        close.addEventListener('click', function() { menu.classList.remove('open'); });
+        if (close) close.addEventListener('click', function() { menu.classList.remove('open'); });
         menu.querySelectorAll('.nav-mobile-link').forEach(function(a) {
           a.addEventListener('click', function() { menu.classList.remove('open'); });
         });
       }
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initMenu);
-      } else {
-        initMenu();
-        setTimeout(initMenu, 500);
-      }
+      // 嘗試立即初始化
+      initMenu();
+      // 用 MutationObserver 等待 DOM 就緒
+      var observer = new MutationObserver(function() { initMenu(); });
+      observer.observe(document.body, { childList: true, subtree: true });
+      // 備援：多次延遲嘗試
+      [100, 300, 600, 1000, 2000].forEach(function(t) {
+        setTimeout(initMenu, t);
+      });
     })();
   </script>
 
