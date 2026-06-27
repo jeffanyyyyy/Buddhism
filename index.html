@@ -366,7 +366,7 @@ body { margin:0; }
           <p style="font-size:14px; color:#8a6f55; line-height:1.9; margin:0 0 18px;">二百六十字攝盡般若精要，照見五蘊皆空，度一切苦厄。</p>
           <span style="font-size:13px; color:#B8893A; letter-spacing:.1em;">線上閱讀 →</span>
         </a>
-        <a href="入佛門法要.pdf" target="_blank" style="background:#FFFDF8; border:1px solid rgba(201,162,75,.4); padding:32px 28px; text-decoration:none; color:#2A1A16; display:block; cursor:pointer;">
+        <a onClick="{{ goDharma }}" style="background:#FFFDF8; border:1px solid rgba(201,162,75,.4); padding:32px 28px; text-decoration:none; color:#2A1A16; display:block; cursor:pointer;">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
             <div style="width:46px; height:46px; border:1px solid #C9A24B; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Noto Serif TC',serif; color:#C9A24B; font-size:18px;">法</div>
             <span style="font-size:11px; padding:3px 10px; background:rgba(110,140,80,.15); color:#5f7a3e;">可閱讀</span>
@@ -410,6 +410,298 @@ body { margin:0; }
             <p style="font-size:14px; color:#8a6f55; margin:0; line-height:1.8;">建立每日定課，將佛法落實於日常，解行相應。</p>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ============ 視圖：入佛門法要閱讀 ============ -->
+  <sc-if value="{{ isDharma }}" hint-placeholder-val="{{ false }}">
+  <div>
+    <div class="rwd-sutra-pad" style="padding:60px 56px 50px; background:linear-gradient(180deg,#4A2A22,#3A211C); color:#F7EFD9; text-align:center;">
+      <a onClick="{{ goPrimer }}" style="font-size:13px; color:#C9A24B; text-decoration:none; letter-spacing:.1em; cursor:pointer;">← 返回入門佛法</a>
+      <h1 style="font-family:'Noto Serif TC',serif; font-weight:500; font-size:42px; margin:18px 0 10px; letter-spacing:.16em;">入佛門法要</h1>
+      <p style="font-size:14px; color:#C9A24B; margin:0; letter-spacing:.2em;">初入佛門綱要 · 師父開示</p>
+    </div>
+
+    <!-- 章節目錄 -->
+    <div style="background:#F0E7D4; border-bottom:1px solid rgba(201,162,75,.3);">
+      <div class="rwd-pad-56" style="max-width:900px; margin:0 auto; padding:20px 56px; display:flex; gap:12px; flex-wrap:wrap; justify-content:center;">
+        <a href="#dharma-intro" style="padding:7px 18px; background:#3A211C; color:#C9A24B; font-size:13px; letter-spacing:.1em; text-decoration:none; font-family:'Noto Serif TC',serif;">序經</a>
+        <a href="#dharma-sanjie" style="padding:7px 18px; border:1px solid rgba(58,33,28,.3); color:#3A211C; font-size:13px; letter-spacing:.1em; text-decoration:none; font-family:'Noto Serif TC',serif;">三皈依</a>
+        <a href="#dharma-wujie" style="padding:7px 18px; border:1px solid rgba(58,33,28,.3); color:#3A211C; font-size:13px; letter-spacing:.1em; text-decoration:none; font-family:'Noto Serif TC',serif;">五戒</a>
+        <a href="#dharma-sanxue" style="padding:7px 18px; border:1px solid rgba(58,33,28,.3); color:#3A211C; font-size:13px; letter-spacing:.1em; text-decoration:none; font-family:'Noto Serif TC',serif;">三學</a>
+        <a href="#dharma-sanzang" style="padding:7px 18px; border:1px solid rgba(58,33,28,.3); color:#3A211C; font-size:13px; letter-spacing:.1em; text-decoration:none; font-family:'Noto Serif TC',serif;">三藏</a>
+        <a href="#dharma-12" style="padding:7px 18px; border:1px solid rgba(58,33,28,.3); color:#3A211C; font-size:13px; letter-spacing:.1em; text-decoration:none; font-family:'Noto Serif TC',serif;">十二部經</a>
+        <a href="#dharma-37" style="padding:7px 18px; border:1px solid rgba(58,33,28,.3); color:#3A211C; font-size:13px; letter-spacing:.1em; text-decoration:none; font-family:'Noto Serif TC',serif;">三十七道品</a>
+      </div>
+    </div>
+
+    <div class="rwd-pad-56" id="dharma-print-area" style="max-width:860px; margin:0 auto; padding:60px 40px 80px;">
+
+      <!-- 序經 -->
+      <div id="dharma-intro" style="background:#FFFDF8; border:1px solid rgba(201,162,75,.4); padding:50px 52px; box-shadow:0 2px 20px rgba(58,33,28,.06); margin-bottom:32px;">
+        <div style="font-family:'Noto Serif TC',serif; font-size:13px; color:#B8893A; letter-spacing:.3em; margin-bottom:20px; text-align:center;">序 · 經文</div>
+        <p style="font-family:'Noto Serif TC',serif; font-size:17px; line-height:2.6; color:#2A1A16; margin:0; letter-spacing:.04em; text-align:justify;">
+          《佛說三歸五戒慈心厭離功德經》云：如上施福，不如受三自歸。所以然者，受三歸者，施一切眾生無畏。是故歸佛、法、僧，其福不可計量也。如上布施及受三歸福，復不如受五戒福。受五戒者，功德滿具，其福勝也。如上布施及受三歸、五戒福，復不如彈指頃慈念眾生福也。如上布施，及受三歸、五戒，慈念眾生福，復不如起一切世間不可樂想福。所以然者，起一切世間不可樂想福，能令行者滅生死苦，終成佛道，故其福最勝也。
+        </p>
+      </div>
+
+      <!-- 三皈依 -->
+      <div id="dharma-sanjie" style="margin-bottom:32px;">
+        <div style="display:flex; align-items:center; gap:16px; margin-bottom:24px;">
+          <div style="width:50px; height:50px; border:1.5px solid #C9A24B; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Noto Serif TC',serif; color:#C9A24B; font-size:22px; flex-shrink:0;">皈</div>
+          <h2 style="font-family:'Noto Serif TC',serif; font-size:28px; color:#3A211C; margin:0; letter-spacing:.16em;">三皈依</h2>
+        </div>
+        <div style="background:#FFFDF8; border:1px solid rgba(201,162,75,.4); padding:40px 48px; box-shadow:0 2px 20px rgba(58,33,28,.06);">
+          <div style="font-family:'Noto Serif TC',serif; font-size:15px; color:#B8893A; letter-spacing:.2em; margin-bottom:18px;">一、釋名</div>
+          <p style="font-family:'Noto Serif TC',serif; font-size:16px; line-height:2.4; color:#2A1A16; margin:0 0 6px; letter-spacing:.04em;">㈠ 皈者歸投，依者依靠。</p>
+          <p style="font-family:'Noto Serif TC',serif; font-size:16px; line-height:2.4; color:#2A1A16; margin:0 0 24px; letter-spacing:.04em;">㈡ 皈依者係皈依三寶。三寶者佛、法、僧也。言皈依某法師者，不過取其作證，向其親教而已。</p>
+          <div style="height:1px; background:rgba(201,162,75,.25); margin:24px 0;"></div>
+          <div style="font-family:'Noto Serif TC',serif; font-size:15px; color:#B8893A; letter-spacing:.2em; margin-bottom:18px;">二、稱「寶」六義</div>
+          <p style="font-family:'Noto Serif TC',serif; font-size:16px; line-height:2.4; color:#2A1A16; margin:0; letter-spacing:.04em;">
+            １．希有曰寶：世寶貧窮所無，三寶薄福不遇。<br>
+            ２．離垢曰寶：世寶體無瑕穢，三寶絕離諸漏。<br>
+            ３．勢力曰寶：世寶除貧去毒，三寶六通難思。<br>
+            ４．莊嚴曰寶：世寶嚴身令好，三寶能嚴法身。<br>
+            ５．最勝曰寶：世寶諸物中勝，三寶諸有無上。<br>
+            ６．不改曰寶：世寶鍊磨不變，三寶八法不動。
+          </p>
+          <div style="height:1px; background:rgba(201,162,75,.25); margin:24px 0;"></div>
+          <div style="font-family:'Noto Serif TC',serif; font-size:15px; color:#B8893A; letter-spacing:.2em; margin-bottom:18px;">三、皈依功德</div>
+          <p style="font-family:'Noto Serif TC',serif; font-size:16px; line-height:2.4; color:#2A1A16; margin:0; letter-spacing:.04em;">
+            ㈠ 經載，天人報盡，將墮豬胎，以皈佛功德，還作天人。<br>
+            ㈡ 不受三皈，不得五戒、八戒、十戒，乃至不得一切戒。<br>
+            ㈢ 有人受三皈依，彌勒初會解脫生死。
+          </p>
+          <div style="height:1px; background:rgba(201,162,75,.25); margin:24px 0;"></div>
+          <div style="font-family:'Noto Serif TC',serif; font-size:15px; color:#B8893A; letter-spacing:.2em; margin-bottom:18px;">四、會歸淨土</div>
+          <p style="font-family:'Noto Serif TC',serif; font-size:16px; line-height:2.4; color:#2A1A16; margin:0; letter-spacing:.04em;">皈依三寶後，應常念佛、念法、念僧，求生極樂世界。</p>
+        </div>
+      </div>
+
+      <!-- 五戒 -->
+      <div id="dharma-wujie" style="margin-bottom:32px;">
+        <div style="display:flex; align-items:center; gap:16px; margin-bottom:24px;">
+          <div style="width:50px; height:50px; border:1.5px solid #C9A24B; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Noto Serif TC',serif; color:#C9A24B; font-size:22px; flex-shrink:0;">戒</div>
+          <h2 style="font-family:'Noto Serif TC',serif; font-size:28px; color:#3A211C; margin:0; letter-spacing:.16em;">五戒</h2>
+        </div>
+        <div style="background:#FFFDF8; border:1px solid rgba(201,162,75,.4); padding:40px 48px; box-shadow:0 2px 20px rgba(58,33,28,.06);">
+          <div style="font-family:'Noto Serif TC',serif; font-size:15px; color:#B8893A; letter-spacing:.2em; margin-bottom:18px;">一、釋名</div>
+          <p style="font-family:'Noto Serif TC',serif; font-size:16px; line-height:2.4; color:#2A1A16; margin:0 0 24px; letter-spacing:.04em;">五戒者，所謂不殺、不盜、不邪婬、不妄語、不飲酒是。此五能防故名為戒。前三防身；次一防口；後之一種通防身口，護前四故。</p>
+          <div style="height:1px; background:rgba(201,162,75,.25); margin:0 0 24px;"></div>
+          <div style="display:flex; flex-direction:column; gap:18px;">
+            <div style="padding:18px 24px; background:rgba(201,162,75,.06); border-left:3px solid #C9A24B;">
+              <div style="font-family:'Noto Serif TC',serif; font-size:17px; color:#3A211C; margin-bottom:8px; letter-spacing:.1em;">㈠ 不殺生</div>
+              <p style="font-size:15px; color:#6b5a48; line-height:2.2; margin:0;">一切有情，從初識至後識，不得斷其命。自作、教他、讚歎殺，一切均犯。慈悲護生，是不殺戒之根本精神。</p>
+            </div>
+            <div style="padding:18px 24px; background:rgba(201,162,75,.06); border-left:3px solid #C9A24B;">
+              <div style="font-family:'Noto Serif TC',serif; font-size:17px; color:#3A211C; margin-bottom:8px; letter-spacing:.1em;">㈡ 不盜</div>
+              <p style="font-size:15px; color:#6b5a48; line-height:2.2; margin:0;">非理損他有主之物，名之為盜。盜義極廣，約六根起非法行，若偷六大亦犯重罪。下至草葉不盜。</p>
+            </div>
+            <div style="padding:18px 24px; background:rgba(201,162,75,.06); border-left:3px solid #C9A24B;">
+              <div style="font-family:'Noto Serif TC',serif; font-size:17px; color:#3A211C; margin-bottom:8px; letter-spacing:.1em;">㈢ 不邪婬</div>
+              <p style="font-size:15px; color:#6b5a48; line-height:2.2; margin:0;">正式配偶以外之邪婬，皆名邪婬。護持清淨梵行，是修行之根基。</p>
+            </div>
+            <div style="padding:18px 24px; background:rgba(201,162,75,.06); border-left:3px solid #C9A24B;">
+              <div style="font-family:'Noto Serif TC',serif; font-size:17px; color:#3A211C; margin-bottom:8px; letter-spacing:.1em;">㈣ 不妄語</div>
+              <p style="font-size:15px; color:#6b5a48; line-height:2.2; margin:0;">口四過：妄語、惡口、兩舌、綺語。凡有所說，當說善語，不應惡語便自熱惱。乃至畜生聞毀慚愧，況於人也。</p>
+            </div>
+            <div style="padding:18px 24px; background:rgba(201,162,75,.06); border-left:3px solid #C9A24B;">
+              <div style="font-family:'Noto Serif TC',serif; font-size:17px; color:#3A211C; margin-bottom:8px; letter-spacing:.1em;">㈤ 不飲酒</div>
+              <p style="font-size:15px; color:#6b5a48; line-height:2.2; margin:0;">酒能亂性，令人放逸，失諸善法，故制不飲。若以我為師者，乃至不得以草木內酒中滴口。酒有十過，慎勿觸犯。</p>
+            </div>
+          </div>
+          <div style="height:1px; background:rgba(201,162,75,.25); margin:24px 0;"></div>
+          <div style="font-family:'Noto Serif TC',serif; font-size:15px; color:#B8893A; letter-spacing:.2em; margin-bottom:14px;">回向西方</div>
+          <p style="font-family:'Noto Serif TC',serif; font-size:16px; line-height:2.4; color:#2A1A16; margin:0; letter-spacing:.04em;">五戒功德，經論廣讚。故須勤修淨行，期生彌陀樂土。受五戒者，以此善根，迴向願求生於西方極樂世界。</p>
+        </div>
+      </div>
+
+      <!-- 三學 -->
+      <div id="dharma-sanxue" style="margin-bottom:32px;">
+        <div style="display:flex; align-items:center; gap:16px; margin-bottom:24px;">
+          <div style="width:50px; height:50px; border:1.5px solid #C9A24B; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Noto Serif TC',serif; color:#C9A24B; font-size:22px; flex-shrink:0;">學</div>
+          <h2 style="font-family:'Noto Serif TC',serif; font-size:28px; color:#3A211C; margin:0; letter-spacing:.16em;">三學</h2>
+        </div>
+        <div style="background:#FFFDF8; border:1px solid rgba(201,162,75,.4); padding:40px 48px; box-shadow:0 2px 20px rgba(58,33,28,.06);">
+          <p style="font-family:'Noto Serif TC',serif; font-size:16px; line-height:2.4; color:#2A1A16; margin:0 0 24px; letter-spacing:.04em;">言三學者，增戒學、增定學、增慧學。簡稱戒學、定學、慧學。聖教雖多，不越三學。</p>
+          <p style="font-family:'Noto Serif TC',serif; font-size:16px; line-height:2.4; color:#2A1A16; margin:0 0 24px; letter-spacing:.04em; font-style:italic; color:#8a6f55;">戒如捉賊，定縛，慧殺。三行次第而生，不可相離。</p>
+          <div style="height:1px; background:rgba(201,162,75,.25); margin:0 0 24px;"></div>
+          <div style="display:flex; flex-direction:column; gap:18px;">
+            <div style="padding:18px 24px; background:rgba(201,162,75,.06); border-left:3px solid #C9A24B;">
+              <div style="font-family:'Noto Serif TC',serif; font-size:17px; color:#3A211C; margin-bottom:8px; letter-spacing:.1em;">戒學</div>
+              <p style="font-size:15px; color:#6b5a48; line-height:2.2; margin:0;">防非止惡名戒，於中精進習行謂之學，修學進步名之為增。五分功德，以戒為初；無上菩提，以戒為本。</p>
+            </div>
+            <div style="padding:18px 24px; background:rgba(201,162,75,.06); border-left:3px solid #C9A24B;">
+              <div style="font-family:'Noto Serif TC',serif; font-size:17px; color:#3A211C; margin-bottom:8px; letter-spacing:.1em;">定學</div>
+              <p style="font-size:15px; color:#6b5a48; line-height:2.2; margin:0;">澄心靜慮名定，精進習行名學，學而進步名增。若得禪定，即能具足發諸無漏智，一切神通道力，成等正覺，廣度眾生。</p>
+            </div>
+            <div style="padding:18px 24px; background:rgba(201,162,75,.06); border-left:3px solid #C9A24B;">
+              <div style="font-family:'Noto Serif TC',serif; font-size:17px; color:#3A211C; margin-bottom:8px; letter-spacing:.1em;">慧學</div>
+              <p style="font-size:15px; color:#6b5a48; line-height:2.2; margin:0;">觀照悟達名慧，習行名學，進步名增。三慧：聞慧（從經聞生）、思慧（思量義理）、修慧（現前知見）。大乘般若智慧，出生三世諸佛，與諸佛無上菩提。</p>
+            </div>
+          </div>
+          <div style="height:1px; background:rgba(201,162,75,.25); margin:24px 0;"></div>
+          <p style="font-family:'Noto Serif TC',serif; font-size:16px; line-height:2.4; color:#2A1A16; margin:0; letter-spacing:.04em;">攝心為戒，因戒生定，因定發慧，是則名為三無漏學。</p>
+        </div>
+      </div>
+
+      <!-- 三藏 -->
+      <div id="dharma-sanzang" style="margin-bottom:32px;">
+        <div style="display:flex; align-items:center; gap:16px; margin-bottom:24px;">
+          <div style="width:50px; height:50px; border:1.5px solid #C9A24B; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Noto Serif TC',serif; color:#C9A24B; font-size:22px; flex-shrink:0;">藏</div>
+          <h2 style="font-family:'Noto Serif TC',serif; font-size:28px; color:#3A211C; margin:0; letter-spacing:.16em;">三藏</h2>
+        </div>
+        <div style="background:#FFFDF8; border:1px solid rgba(201,162,75,.4); padding:40px 48px; box-shadow:0 2px 20px rgba(58,33,28,.06);">
+          <p style="font-family:'Noto Serif TC',serif; font-size:16px; line-height:2.4; color:#2A1A16; margin:0 0 24px; letter-spacing:.04em;">三藏者，即修多羅、毘奈耶、阿毘達磨，華譯為經、律、論。藏者，容攝義，喻此聚能容攝一切佛法。</p>
+          <div style="height:1px; background:rgba(201,162,75,.25); margin:0 0 24px;"></div>
+          <div style="display:flex; flex-direction:column; gap:18px;">
+            <div style="padding:18px 24px; background:rgba(201,162,75,.06); border-left:3px solid #C9A24B;">
+              <div style="font-family:'Noto Serif TC',serif; font-size:17px; color:#3A211C; margin-bottom:8px; letter-spacing:.1em;">經藏（修多羅）</div>
+              <p style="font-size:15px; color:#6b5a48; line-height:2.2; margin:0;">修多羅譯為綖、墨繩、契經。貫穿義：理以貫文，成諸言教。契合義：上契諸佛果德，下契眾生因心。</p>
+            </div>
+            <div style="padding:18px 24px; background:rgba(201,162,75,.06); border-left:3px solid #C9A24B;">
+              <div style="font-family:'Noto Serif TC',serif; font-size:17px; color:#3A211C; margin-bottom:8px; letter-spacing:.1em;">律藏（毘奈耶）</div>
+              <p style="font-size:15px; color:#6b5a48; line-height:2.2; margin:0;">毘奈耶華譯為律。律者，法也，謂犯不犯定輕重等法。戒：梵語尸羅，警策三業，遠離緣非。別解脫：別別解脫，隨分解脫。</p>
+            </div>
+            <div style="padding:18px 24px; background:rgba(201,162,75,.06); border-left:3px solid #C9A24B;">
+              <div style="font-family:'Noto Serif TC',serif; font-size:17px; color:#3A211C; margin-bottom:8px; letter-spacing:.1em;">論藏（阿毘達磨）</div>
+              <p style="font-size:15px; color:#6b5a48; line-height:2.2; margin:0;">阿毘達磨華譯為勝法（無比法）、對法、向法、論。研究甚深素怛纜義，宣暢一切契經宗要，故名論議。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 十二部經 -->
+      <div id="dharma-12" style="margin-bottom:32px;">
+        <div style="display:flex; align-items:center; gap:16px; margin-bottom:24px;">
+          <div style="width:50px; height:50px; border:1.5px solid #C9A24B; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Noto Serif TC',serif; color:#C9A24B; font-size:18px; flex-shrink:0;">十二</div>
+          <h2 style="font-family:'Noto Serif TC',serif; font-size:28px; color:#3A211C; margin:0; letter-spacing:.16em;">十二部經</h2>
+        </div>
+        <div style="background:#FFFDF8; border:1px solid rgba(201,162,75,.4); padding:40px 48px; box-shadow:0 2px 20px rgba(58,33,28,.06);">
+          <p style="font-family:'Noto Serif TC',serif; font-size:16px; line-height:2.4; color:#2A1A16; margin:0 0 24px; letter-spacing:.04em;">大聖說法，隨義分別，體裁理有其十二，又曰十二分教。此十二者非是十二部，而是十二部份。</p>
+          <div style="height:1px; background:rgba(201,162,75,.25); margin:0 0 24px;"></div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+            <div style="padding:14px 18px; background:rgba(201,162,75,.06); border:1px solid rgba(201,162,75,.25);">
+              <div style="font-family:'Noto Serif TC',serif; font-size:15px; color:#3A211C; margin-bottom:4px;">① 修多羅</div>
+              <p style="font-size:13px; color:#8a6f55; margin:0; line-height:1.8;">契經。長行散文，理以貫文。</p>
+            </div>
+            <div style="padding:14px 18px; background:rgba(201,162,75,.06); border:1px solid rgba(201,162,75,.25);">
+              <div style="font-family:'Noto Serif TC',serif; font-size:15px; color:#3A211C; margin-bottom:4px;">② 祇夜</div>
+              <p style="font-size:13px; color:#8a6f55; margin:0; line-height:1.8;">重頌。重宣長行之義。</p>
+            </div>
+            <div style="padding:14px 18px; background:rgba(201,162,75,.06); border:1px solid rgba(201,162,75,.25);">
+              <div style="font-family:'Noto Serif TC',serif; font-size:15px; color:#3A211C; margin-bottom:4px;">③ 伽陀</div>
+              <p style="font-size:13px; color:#8a6f55; margin:0; line-height:1.8;">孤起頌。不重長行，直以偈頌顯示諸法。</p>
+            </div>
+            <div style="padding:14px 18px; background:rgba(201,162,75,.06); border:1px solid rgba(201,162,75,.25);">
+              <div style="font-family:'Noto Serif TC',serif; font-size:15px; color:#3A211C; margin-bottom:4px;">④ 尼陀那</div>
+              <p style="font-size:13px; color:#8a6f55; margin:0; line-height:1.8;">因緣經。借現前事為因緣而說。</p>
+            </div>
+            <div style="padding:14px 18px; background:rgba(201,162,75,.06); border:1px solid rgba(201,162,75,.25);">
+              <div style="font-family:'Noto Serif TC',serif; font-size:15px; color:#3A211C; margin-bottom:4px;">⑤ 依帝越多伽</div>
+              <p style="font-size:13px; color:#8a6f55; margin:0; line-height:1.8;">本事。佛宣說他人前生之事。</p>
+            </div>
+            <div style="padding:14px 18px; background:rgba(201,162,75,.06); border:1px solid rgba(201,162,75,.25);">
+              <div style="font-family:'Noto Serif TC',serif; font-size:15px; color:#3A211C; margin-bottom:4px;">⑥ 闍多伽</div>
+              <p style="font-size:13px; color:#8a6f55; margin:0; line-height:1.8;">本生。佛自述前生之事。</p>
+            </div>
+            <div style="padding:14px 18px; background:rgba(201,162,75,.06); border:1px solid rgba(201,162,75,.25);">
+              <div style="font-family:'Noto Serif TC',serif; font-size:15px; color:#3A211C; margin-bottom:4px;">⑦ 阿浮陀達磨</div>
+              <p style="font-size:13px; color:#8a6f55; margin:0; line-height:1.8;">未曾有經。佛菩薩神通變化，曠古稀奇。</p>
+            </div>
+            <div style="padding:14px 18px; background:rgba(201,162,75,.06); border:1px solid rgba(201,162,75,.25);">
+              <div style="font-family:'Noto Serif TC',serif; font-size:15px; color:#3A211C; margin-bottom:4px;">⑧ 阿波陀那</div>
+              <p style="font-size:13px; color:#8a6f55; margin:0; line-height:1.8;">譬喻。借比況喻明以顯其法。</p>
+            </div>
+            <div style="padding:14px 18px; background:rgba(201,162,75,.06); border:1px solid rgba(201,162,75,.25);">
+              <div style="font-family:'Noto Serif TC',serif; font-size:15px; color:#3A211C; margin-bottom:4px;">⑨ 優婆提舍</div>
+              <p style="font-size:13px; color:#8a6f55; margin:0; line-height:1.8;">論義。問答辨理之經。</p>
+            </div>
+            <div style="padding:14px 18px; background:rgba(201,162,75,.06); border:1px solid rgba(201,162,75,.25);">
+              <div style="font-family:'Noto Serif TC',serif; font-size:15px; color:#3A211C; margin-bottom:4px;">⑩ 優陀那</div>
+              <p style="font-size:13px; color:#8a6f55; margin:0; line-height:1.8;">無問自說。如阿彌陀經。</p>
+            </div>
+            <div style="padding:14px 18px; background:rgba(201,162,75,.06); border:1px solid rgba(201,162,75,.25);">
+              <div style="font-family:'Noto Serif TC',serif; font-size:15px; color:#3A211C; margin-bottom:4px;">⑪ 毘佛略</div>
+              <p style="font-size:13px; color:#8a6f55; margin:0; line-height:1.8;">方廣經。十二部中唯方廣是菩薩藏。</p>
+            </div>
+            <div style="padding:14px 18px; background:rgba(201,162,75,.06); border:1px solid rgba(201,162,75,.25);">
+              <div style="font-family:'Noto Serif TC',serif; font-size:15px; color:#3A211C; margin-bottom:4px;">⑫ 和伽羅那</div>
+              <p style="font-size:13px; color:#8a6f55; margin:0; line-height:1.8;">授記。行者據因得果，大聖說以示人。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 三十七道品 -->
+      <div id="dharma-37" style="margin-bottom:48px;">
+        <div style="display:flex; align-items:center; gap:16px; margin-bottom:24px;">
+          <div style="width:50px; height:50px; border:1.5px solid #C9A24B; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Noto Serif TC',serif; color:#C9A24B; font-size:18px; flex-shrink:0;">道品</div>
+          <h2 style="font-family:'Noto Serif TC',serif; font-size:28px; color:#3A211C; margin:0; letter-spacing:.16em;">三十七道品</h2>
+        </div>
+        <div style="background:#FFFDF8; border:1px solid rgba(201,162,75,.4); padding:40px 48px; box-shadow:0 2px 20px rgba(58,33,28,.06);">
+          <p style="font-family:'Noto Serif TC',serif; font-size:16px; line-height:2.4; color:#2A1A16; margin:0 0 24px; letter-spacing:.04em;">道品亦名菩提分、覺支。三十七道品者：四念處、四正勤、四如意足、五根、五力、七菩提分、八正道。</p>
+          <div style="height:1px; background:rgba(201,162,75,.25); margin:0 0 24px;"></div>
+          <div style="display:flex; flex-direction:column; gap:16px;">
+            <div style="padding:18px 24px; background:rgba(201,162,75,.06); border-left:3px solid #C9A24B;">
+              <div style="display:flex; align-items:baseline; gap:12px; margin-bottom:8px;">
+                <span style="font-family:'Noto Serif TC',serif; font-size:13px; padding:2px 10px; background:#3A211C; color:#C9A24B; flex-shrink:0;">四念處</span>
+                <span style="font-family:'Noto Serif TC',serif; font-size:16px; color:#3A211C;">念位</span>
+              </div>
+              <p style="font-size:15px; color:#6b5a48; line-height:2.2; margin:0;">身念處（觀身不淨）、受念處（觀受是苦）、心念處（觀心無常）、法念處（觀法無我）。破凡夫四倒，亦侵破無明。</p>
+            </div>
+            <div style="padding:18px 24px; background:rgba(201,162,75,.06); border-left:3px solid #C9A24B;">
+              <div style="display:flex; align-items:baseline; gap:12px; margin-bottom:8px;">
+                <span style="font-family:'Noto Serif TC',serif; font-size:13px; padding:2px 10px; background:#3A211C; color:#C9A24B; flex-shrink:0;">四正勤</span>
+                <span style="font-family:'Noto Serif TC',serif; font-size:16px; color:#3A211C;">煖位</span>
+              </div>
+              <p style="font-size:15px; color:#6b5a48; line-height:2.2; margin:0;">已生惡令斷、未生惡令不生、已生善令增長、未生善令生。策修不惰為勤，勤心不邪為正。</p>
+            </div>
+            <div style="padding:18px 24px; background:rgba(201,162,75,.06); border-left:3px solid #C9A24B;">
+              <div style="display:flex; align-items:baseline; gap:12px; margin-bottom:8px;">
+                <span style="font-family:'Noto Serif TC',serif; font-size:13px; padding:2px 10px; background:#3A211C; color:#C9A24B; flex-shrink:0;">四如意足</span>
+                <span style="font-family:'Noto Serif TC',serif; font-size:16px; color:#3A211C;">頂位</span>
+              </div>
+              <p style="font-size:15px; color:#6b5a48; line-height:2.2; margin:0;">欲如意足、進如意足、念如意足、慧如意足。四種求定稱心，故曰如意；趣定自在，猶如腳足，故名如意足。</p>
+            </div>
+            <div style="padding:18px 24px; background:rgba(201,162,75,.06); border-left:3px solid #C9A24B;">
+              <div style="display:flex; align-items:baseline; gap:12px; margin-bottom:8px;">
+                <span style="font-family:'Noto Serif TC',serif; font-size:13px; padding:2px 10px; background:#3A211C; color:#C9A24B; flex-shrink:0;">五根</span>
+                <span style="font-family:'Noto Serif TC',serif; font-size:16px; color:#3A211C;">忍位</span>
+              </div>
+              <p style="font-size:15px; color:#6b5a48; line-height:2.2; margin:0;">信根、精進根、念根、定根、慧根。宿植而今成，為能生一切善法之本，故名根。</p>
+            </div>
+            <div style="padding:18px 24px; background:rgba(201,162,75,.06); border-left:3px solid #C9A24B;">
+              <div style="display:flex; align-items:baseline; gap:12px; margin-bottom:8px;">
+                <span style="font-family:'Noto Serif TC',serif; font-size:13px; padding:2px 10px; background:#3A211C; color:#C9A24B; flex-shrink:0;">五力</span>
+                <span style="font-family:'Noto Serif TC',serif; font-size:16px; color:#3A211C;">世第一位</span>
+              </div>
+              <p style="font-size:15px; color:#6b5a48; line-height:2.2; margin:0;">五根增長，能破煩惱，名曰五力。信力、精進力、念力、定力、慧力。五力能除世間一切煩惱。</p>
+            </div>
+            <div style="padding:18px 24px; background:rgba(201,162,75,.06); border-left:3px solid #C9A24B;">
+              <div style="display:flex; align-items:baseline; gap:12px; margin-bottom:8px;">
+                <span style="font-family:'Noto Serif TC',serif; font-size:13px; padding:2px 10px; background:#3A211C; color:#C9A24B; flex-shrink:0;">七覺支</span>
+                <span style="font-family:'Noto Serif TC',serif; font-size:16px; color:#3A211C;">修道位</span>
+              </div>
+              <p style="font-size:15px; color:#6b5a48; line-height:2.2; margin:0;">念覺支、擇法覺支、精進覺支、喜覺支、輕安覺支、定覺支、捨覺支。調心入道，若心掉舉用輕安定捨攝之，若心沈沒以擇法精進喜策之。</p>
+            </div>
+            <div style="padding:18px 24px; background:rgba(201,162,75,.06); border-left:3px solid #C9A24B;">
+              <div style="display:flex; align-items:baseline; gap:12px; margin-bottom:8px;">
+                <span style="font-family:'Noto Serif TC',serif; font-size:13px; padding:2px 10px; background:#3A211C; color:#C9A24B; flex-shrink:0;">八正道</span>
+                <span style="font-family:'Noto Serif TC',serif; font-size:16px; color:#3A211C;">見諦位</span>
+              </div>
+              <p style="font-size:15px; color:#6b5a48; line-height:2.2; margin:0;">正見、正思惟、正語、正業、正命、正精進、正念、正定。八正道通大小乘，以正見為首。正見生正思惟，乃至正念生正定，次第相生。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 下載與列印 -->
+      <div style="display:flex; gap:14px; justify-content:center; flex-wrap:wrap; padding-bottom:20px;">
+        <a href="入佛門法要.pdf" download style="padding:13px 34px; background:#C9A24B; color:#3A211C; font-size:15px; letter-spacing:.1em; font-weight:500; text-decoration:none; font-family:'Noto Serif TC',serif;">下載 PDF</a>
+        <button onclick="window.print()" style="padding:13px 34px; border:1px solid #C9A24B; color:#B8893A; font-size:15px; letter-spacing:.1em; background:none; cursor:pointer; font-family:'Noto Serif TC',serif;">列印</button>
       </div>
     </div>
   </div>
@@ -619,7 +911,7 @@ body { margin:0; }
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script>
-const VIEWS = { home:1, about:1, news:1, primer:1, video:1, course:1, contact:1, sutra:1 };
+const VIEWS = { home:1, about:1, news:1, primer:1, video:1, course:1, contact:1, sutra:1, dharma:1 };
 
 class Component extends DCLogic {
   state = { view: this.initialView(), cat: '全部' };
@@ -712,6 +1004,7 @@ class Component extends DCLogic {
       isCourse:  v === 'course',
       isContact: v === 'contact',
       isSutra:   v === 'sutra',
+      isDharma:  v === 'dharma',
       goHome:    nav('home'),
       goAbout:   nav('about'),
       goNews:    nav('news'),
@@ -720,6 +1013,7 @@ class Component extends DCLogic {
       goCourse:  nav('course'),
       goContact: nav('contact'),
       goSutra:   nav('sutra'),
+      goDharma:  nav('dharma'),
       filters, posts, empty: posts.length === 0,
       videos, courses,
     };
