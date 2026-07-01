@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>佛法入門班 — 課程報名 ｜ 華圓覺苑</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --brown-dark:  #3a1f10;
+      --brown-nav:   #2e1508;
+      --brown-mid:   #5a3825;
+      --gold:        #c9a84c;
+      --gold-light:  #e8d5a3;
+      --cream:       #f2ebe0;
+      --text-dark:   #2c1a0e;
+      --text-mid:    #7a5c3a;
+      --border:      #c8b89a;
+    }
+    body { font-family: "Noto Serif TC", "Georgia", serif; background: var(--cream); min-height: 100vh; color: var(--text-dark); }
+    nav { background: var(--brown-nav); padding: 0.85rem 2rem; display: flex; align-items: center; gap: 0.85rem; position: relative; z-index: 10; }
+    .logo-circle { width: 42px; height: 42px; border: 1.5px solid var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--gold); font-size: 1.25rem; font-weight: 700; flex-shrink: 0; }
+    .logo-text { line-height: 1.25; }
+    .logo-zh { color: #e8d5a3; font-size: 1rem; letter-spacing: 0.12em; display: block; }
+    .logo-en { color: #8b7050; font-size: 0.6rem; letter-spacing: 0.22em; display: block; }
+    .hero { background: var(--brown-dark); text-align: center; padding: 4rem 2rem 4.5rem; position: relative; overflow: hidden; }
+    .hero::before { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(90,50,20,0.4) 0%, transparent 70%); pointer-events: none; }
+    .hero-label { display: flex; align-items: center; justify-content: center; gap: 1rem; color: var(--gold); font-size: 0.72rem; letter-spacing: 0.4em; margin-bottom: 1.8rem; }
+    .hero-label::before, .hero-label::after { content: ""; width: 60px; height: 1px; background: var(--gold); opacity: 0.7; }
+    .hero h1 { color: #f0e8d8; font-size: clamp(2.4rem, 6vw, 3.5rem); font-weight: 400; letter-spacing: 0.12em; line-height: 1.4; margin-bottom: 1rem; }
+    .hero .schedule { color: var(--gold-light); font-size: 0.9rem; letter-spacing: 0.2em; opacity: 0.85; }
+    .form-bg { position: relative; background: var(--cream); overflow: hidden; }
+    .form-bg::before { content: ""; position: fixed; top: 50vh; left: 50vw; transform: translate(-50%, -50%); width: 600px; height: 460px; background-image: url("lotus_transparent.png"); background-size: contain; background-position: center; opacity: 0.09; pointer-events: none; z-index: 0; }
+    .form-wrap { max-width: 600px; margin: 0 auto; padding: 3rem 2rem 5rem; position: relative; z-index: 1; }
+    .section-divider { display: flex; align-items: center; gap: 1rem; margin: 2.5rem 0 1.8rem; color: var(--gold); font-size: 0.72rem; letter-spacing: 0.35em; }
+    .section-divider::before, .section-divider::after { content: ""; flex: 1; height: 1px; background: var(--border); }
+    .field { margin-bottom: 1.8rem; }
+    .field:last-child { margin-bottom: 0; }
+    .field-label { font-size: 0.9rem; font-weight: 500; color: var(--text-dark); letter-spacing: 0.08em; margin-bottom: 0.3rem; }
+    .required { color: #c0392b; margin-left: 2px; }
+    .field-hint { font-size: 0.75rem; color: var(--text-mid); letter-spacing: 0.05em; margin-bottom: 0.6rem; }
+    input[type="text"], input[type="email"], input[type="tel"] { width: 100%; border: none; border-bottom: 1px solid var(--border); background: transparent; padding: 0.6rem 0; font-size: 0.93rem; color: var(--text-dark); font-family: inherit; outline: none; transition: border-color 0.2s; }
+    input[type="text"]:focus, input[type="email"]:focus, input[type="tel"]:focus { border-bottom-color: var(--gold); }
+    input::placeholder { color: #b8a888; font-size: 0.85rem; }
+    .radio-row { display: flex; gap: 2rem; flex-wrap: wrap; margin-top: 0.5rem; }
+    .radio-row label { display: flex; align-items: center; gap: 0.5rem; cursor: pointer; font-size: 0.9rem; color: var(--text-dark); letter-spacing: 0.04em; }
+    input[type="radio"] { width: 17px; height: 17px; border: 1.5px solid #b8a888; border-radius: 50%; appearance: none; cursor: pointer; position: relative; flex-shrink: 0; background: rgba(255,255,255,0.8); transition: border-color 0.2s; }
+    input[type="radio"]:checked { border-color: var(--brown-mid); }
+    input[type="radio"]:checked::after { content: ""; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 8px; height: 8px; border-radius: 50%; background: var(--brown-mid); }
+    .checkbox-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem 2rem; margin-top: 0.4rem; }
+    .cb-item { display: flex; align-items: center; gap: 0.55rem; cursor: pointer; }
+    input[type="checkbox"] { width: 17px; height: 17px; border: 1.5px solid #b8a888; border-radius: 2px; appearance: none; cursor: pointer; position: relative; flex-shrink: 0; background: rgba(255,255,255,0.8); transition: border-color 0.2s, background 0.2s; }
+    input[type="checkbox"]:checked { background: var(--brown-mid); border-color: var(--brown-mid); }
+    input[type="checkbox"]:checked::after { content: ""; position: absolute; top: 2px; left: 5px; width: 5px; height: 9px; border: 2px solid white; border-top: none; border-left: none; transform: rotate(45deg); }
+    .cb-item span { font-size: 0.88rem; color: var(--text-dark); letter-spacing: 0.03em; line-height: 1.4; }
+    .submit-wrap { margin-top: 2.5rem; text-align: center; }
+    .submit-btn { background: var(--brown-nav); color: #f0e0c0; border: none; padding: 1rem 5rem; font-size: 1rem; font-family: inherit; letter-spacing: 0.5em; cursor: pointer; border-radius: 2px; transition: background 0.2s; }
+    .submit-btn:hover { background: var(--brown-mid); }
+    .submit-btn:disabled { background: #9a8878; cursor: not-allowed; }
+    .err-msg { background: #fff0f0; border: 1px solid #e0a0a0; color: #c0392b; border-radius: 4px; padding: 0.7rem 1rem; font-size: 0.85rem; margin-top: 1rem; display: none; letter-spacing: 0.05em; }
+    .err-msg.show { display: block; }
+    .form-note { margin-top: 0.85rem; font-size: 0.75rem; color: var(--text-mid); letter-spacing: 0.06em; }
+    .success-wrap { max-width: 600px; margin: 4rem auto; padding: 3rem 2rem; text-align: center; display: none; position: relative; z-index: 1; }
+    .success-wrap.show { display: block; }
+    .success-wrap .s-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+    .success-wrap h2 { color: var(--brown-mid); font-size: 1.2rem; letter-spacing: 0.15em; margin-bottom: 1rem; }
+    .success-wrap p { color: var(--text-mid); font-size: 0.9rem; line-height: 2.2; letter-spacing: 0.08em; }
+    footer { text-align: center; padding: 1.5rem; font-size: 0.75rem; color: #a09070; letter-spacing: 0.12em; border-top: 1px solid var(--border); position: relative; z-index: 1; }
+    @media (max-width: 520px) {
+      .hero h1 { font-size: 2rem; }
+      .form-wrap { padding: 2rem 1.2rem 4rem; }
+      .radio-row { gap: 1.2rem; }
+      .checkbox-grid { grid-template-columns: 1fr; }
+      .submit-btn { padding: 1rem 3rem; }
+      .form-bg::before { width: 100%; height: 300px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="logo-circle">覺</div>
+  <div class="logo-text">
+    <span class="logo-zh">華圓覺苑</span>
+    <span class="logo-en">HUA YUAN MONASTERY</span>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-label">COURSE REGISTRATION</div>
+  <h1>佛法入門班<br/>課程報名</h1>
+  <p class="schedule">週六 14:00–16:00</p>
+</div>
+
+<div class="form-bg">
+  <div class="success-wrap" id="successWrap">
+    <div class="s-icon">🙏</div>
+    <h2>報名成功，感恩您的參與</h2>
+    <p>我們將盡快與您聯繫確認報名細節。<br/>祝福您法喜充滿。<br/><br/>阿彌陀佛</p>
+  </div>
+
+  <div class="form-wrap" id="formWrap">
+    <div class="section-divider">基 本 資 料</div>
+    <div class="field">
+      <div class="field-label">姓名 <span class="required">*</span></div>
+      <input type="text" id="name" placeholder="請輸入您的姓名"/>
+    </div>
+    <div class="field">
+      <div class="field-label">電話 <span class="required">*</span></div>
+      <input type="tel" id="phone" placeholder="例：0912-345-678"/>
+    </div>
+    <div class="field">
+      <div class="field-label">Email <span class="required">*</span></div>
+      <input type="email" id="email" placeholder="example@mail.com"/>
+    </div>
+    <div class="field">
+      <div class="field-label">性別 <span class="required">*</span></div>
+      <div class="radio-row">
+        <label><input type="radio" name="gender" value="男"/> 男</label>
+        <label><input type="radio" name="gender" value="女"/> 女</label>
+        <label><input type="radio" name="gender" value="不提供"/> 不提供</label>
+      </div>
+    </div>
+    <div class="section-divider">學 員 背 景</div>
+    <div class="field">
+      <div class="field-label">上課地點 <span class="required">*</span></div>
+      <div class="radio-row">
+        <label><input type="radio" name="location" value="華圓新莊講堂"/> 華圓新莊講堂</label>
+        <label><input type="radio" name="location" value="華圓台東講堂"/> 華圓台東講堂</label>
+      </div>
+    </div>
+    <div class="field">
+      <div class="field-label">修學背景 <span class="required">*</span></div>
+      <div class="field-hint">請選擇一項</div>
+      <div class="radio-row" style="flex-direction: column; gap: 0.6rem;">
+        <label><input type="radio" name="background" value="初次接觸佛法"/> 初次接觸佛法</label>
+        <label><input type="radio" name="background" value="曾自行閱讀相關書籍"/> 曾自行閱讀相關書籍</label>
+        <label><input type="radio" name="background" value="曾於道場或寺院修學"/> 曾於道場或寺院修學</label>
+      </div>
+    </div>
+    <div class="field">
+      <div class="field-label">如何得知本課程</div>
+      <div class="field-hint">可複選</div>
+      <div class="checkbox-grid">
+        <label class="cb-item"><input type="checkbox" name="how_found" value="親友介紹"/><span>親友介紹</span></label>
+        <label class="cb-item"><input type="checkbox" name="how_found" value="道場網站"/><span>道場網站</span></label>
+        <label class="cb-item"><input type="checkbox" name="how_found" value="社群媒體"/><span>社群媒體（Facebook、Instagram 等）</span></label>
+        <label class="cb-item"><input type="checkbox" name="how_found" value="其他"/><span>其他</span></label>
+      </div>
+    </div>
+    <div class="field">
+      <div class="field-label">希望從課程中獲得什麼</div>
+      <div class="field-hint">可複選</div>
+      <div class="checkbox-grid">
+        <label class="cb-item"><input type="checkbox" name="goals" value="了解基本佛法觀念"/><span>了解基本佛法觀念</span></label>
+        <label class="cb-item"><input type="checkbox" name="goals" value="學習如何修行、靜心"/><span>學習如何修行、靜心</span></label>
+        <label class="cb-item"><input type="checkbox" name="goals" value="解答人生困惑"/><span>解答人生困惑</span></label>
+        <label class="cb-item"><input type="checkbox" name="goals" value="認識道場、結交善知識"/><span>認識道場、結交善知識</span></label>
+        <label class="cb-item"><input type="checkbox" name="goals" value="其他"/><span>其他</span></label>
+      </div>
+    </div>
+    <div class="submit-wrap">
+      <button class="submit-btn" id="submitBtn" onclick="submitForm()">送 出 報 名</button>
+      <div class="err-msg" id="errMsg"></div>
+      <p class="form-note">* 為必填項目 ｜ 報名資料僅供課程聯繫使用，不作其他用途</p>
+    </div>
+  </div>
+</div>
+
+<footer>華圓覺苑 · 新北市新莊區雙鳳路107號 · 近捷運迴龍站</footer>
+
+<script>
+  const SUPABASE_URL = "https://kwqcdjmeiiewtkpyziky.supabase.co";
+  const SUPABASE_KEY = "sb_publishable_pQhhyeqgvKyrAfH92l42-A_65cJvUqo";
+  const { createClient } = supabase;
+  const db = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  // ★ 每期開新梯次只需改這一行日期 ★
+  const COURSE_DATE = "2025-10-31";
+
+  function getChecked(name) {
+    return Array.from(document.querySelectorAll("input[name='" + name + "']:checked"))
+      .map(el => el.value).join("、");
+  }
+
+  function showErr(msg) {
+    const el = document.getElementById("errMsg");
+    el.textContent = msg;
+    el.classList.add("show");
+  }
+
+  function hideErr() {
+    document.getElementById("errMsg").classList.remove("show");
+  }
+
+  async function submitForm() {
+    hideErr();
+    const name       = document.getElementById("name").value.trim();
+    const phone      = document.getElementById("phone").value.trim();
+    const email      = document.getElementById("email").value.trim();
+    const gender     = document.querySelector("input[name='gender']:checked")?.value || "";
+    const location   = document.querySelector("input[name='location']:checked")?.value || "";
+    const background = document.querySelector("input[name='background']:checked")?.value || "";
+    const how_found  = getChecked("how_found");
+    const goals      = getChecked("goals");
+
+    if (!name)       { showErr("請填寫姓名"); return; }
+    if (!phone)      { showErr("請填寫聯絡電話"); return; }
+    if (!email)      { showErr("請填寫 Email"); return; }
+    if (!gender)     { showErr("請選擇性別"); return; }
+    if (!location)   { showErr("請選擇上課地點"); return; }
+    if (!background) { showErr("請選擇修學背景"); return; }
+
+    const btn = document.getElementById("submitBtn");
+    btn.disabled = true;
+    btn.textContent = "送出中…";
+
+    // 第一層：查詢是否已報名本期
+    const { data: existing } = await db
+      .from("registrations")
+      .select("id")
+      .eq("course_date", COURSE_DATE)
+      .eq("name", name)
+      .eq("phone", phone)
+      .maybeSingle();
+
+    if (existing) {
+      showErr("您已報名過本期課程，請勿重複報名。如有疑問請直接聯繫道場。");
+      btn.disabled = false;
+      btn.textContent = "送 出 報 名";
+      return;
+    }
+
+    // 第二層：寫入資料庫
+    const { error } = await db.from("registrations").insert([
+      { name, phone, email, gender, location, background, how_found, goals, course_date: COURSE_DATE }
+    ]);
+
+    if (error?.code === "23505") {
+      showErr("您已報名過本期課程，請勿重複報名。");
+      btn.disabled = false;
+      btn.textContent = "送 出 報 名";
+    } else if (error) {
+      showErr("送出失敗，請稍後再試。（" + error.message + "）");
+      btn.disabled = false;
+      btn.textContent = "送 出 報 名";
+    } else {
+      document.getElementById("formWrap").style.display = "none";
+      document.getElementById("successWrap").classList.add("show");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }
+</script>
+</body>
+</html>
